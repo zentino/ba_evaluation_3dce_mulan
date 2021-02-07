@@ -1,0 +1,876 @@
+Loaded configuration file config.yml
+{'BEGIN_EPOCH': 0,
+ 'DATALOADER': {'DROP_LAST_BATCH': False, 'SIZE_DIVISIBILITY': 16},
+ 'DATASETS': {'TAG': {'MANUAL_ANNOT_TEST_FILE': 'hand_labeled_test_set.json',
+                      'SPLIT_FILE': 'text_mined_labels_171_and_split.json',
+                      'TAG_DICT_FILE': 'lesion_ontology_181022.xlsx',
+                      'USE_CACHE_FILE': 'tags_cache.json'},
+              'TEST': ['DeepLesion_test'],
+              'TRAIN': ['DeepLesion_train'],
+              'VAL': ['DeepLesion_val']},
+ 'EVAL_AT_BEGIN': False,
+ 'EXP_NAME': 'MULAN trained on DeepLesion (Nov) lr_0.00283',
+ 'FINETUNE_FROM': '',
+ 'GPU': '',
+ 'INPUT': {'DATA_AUG_3D': -0.5,
+           'DATA_AUG_POSITION': True,
+           'DATA_AUG_SCALE': [0.8, 1.2],
+           'IMG_DO_CLIP': True,
+           'MAX_IM_SIZE': 512,
+           'NORM_SPACING': 0.8,
+           'NUM_IMAGES_3DCE': 3,
+           'NUM_SLICES': 3,
+           'SLICE_INTV': 2},
+ 'KEEP_BEST_MODEL': True,
+ 'LOG_IN_FILE': True,
+ 'MODE': 'train',
+ 'MODEL': {'BACKBONE': {'CONV_BODY': 'DenseTrunc-121',
+                        'FEATURE_FUSION_LEVELS': [False, False, True],
+                        'FEATURE_UPSAMPLE': True,
+                        'FEATURE_UPSAMPLE_LEVEL': 3,
+                        'OUT_CHANNELS': 512},
+           'INIT_FROM_PRETRAIN': True,
+           'MASK_ON': True,
+           'META_ARCHITECTURE': 'GeneralizedRCNN',
+           'REFINE_ON': True,
+           'ROI_BOX_HEAD': {'CLSF_LOSS_WEIGHT': 1,
+                            'DROP_OUT': False,
+                            'FEATURE_EXTRACTOR': 'MLPFeatureExtractor',
+                            'FOCAL_LOSS': False,
+                            'MLP_HEAD_DIM': 2048,
+                            'NUM_CLASSES': 2,
+                            'POOLER_RESOLUTION': 7,
+                            'POOLER_SAMPLING_RATIO': 2,
+                            'POOLER_SCALES': [0.25],
+                            'PREDICTOR': 'FPNPredictor',
+                            'REG_LOSS_WEIGHT': 10},
+           'ROI_HEADS': {'BATCH_SIZE_PER_IMAGE': 64,
+                         'BBOX_REG_WEIGHTS': [1.0, 1.0, 1.0, 1.0],
+                         'DETECTIONS_PER_IMG': 50,
+                         'NMS': 0.5,
+                         'SCORE_THRESH': 0.05,
+                         'USE_FPN': False},
+           'ROI_MASK_HEAD': {'CONV_LAYERS': [256, 256, 256, 256],
+                             'FEATURE_EXTRACTOR': 'MaskRCNNFPNFeatureExtractor',
+                             'MASK_LOSS_WEIGHT': 1,
+                             'POOLER_RESOLUTION': 14,
+                             'POOLER_SAMPLING_RATIO': 2,
+                             'POOLER_SCALES': [0.25],
+                             'PREDICTOR': 'MaskRCNNCustomPredictor',
+                             'RESOLUTION': 28,
+                             'SHARE_BOX_FEATURE_EXTRACTOR': False},
+           'ROI_REFINE_HEAD': {'BOX_FEATURE': False,
+                               'DEMOGRAPHIC_FEATURE': False,
+                               'Z_FEATURE': False},
+           'ROI_TAG_HEAD': {'CE_LOSS_POS_WT': True,
+                            'CE_POS_WT_CLAMP': 300,
+                            'FEATURE_EXTRACTOR': 'TagFeatureExtractor',
+                            'MLP_HEAD_DIM': 1024,
+                            'OHEM_LOSS_WEIGHT': 1,
+                            'OHEM_POWER': 2,
+                            'OHEM_SEL_NUM': 10000,
+                            'PREDICTOR': 'MultiLabelPredictor',
+                            'TAG_LOSS_WEIGHT': 1},
+           'RPN': {'ANCHOR_SIZES': [16, 24, 32, 48, 96],
+                   'ANCHOR_STRIDE': [4],
+                   'BATCH_SIZE_PER_IMAGE': 32,
+                   'CLSF_LOSS_WEIGHT': 1,
+                   'CONV_OUT_DIM': 512,
+                   'FOCAL_LOSS': False,
+                   'FPN_POST_NMS_TOP_N_TEST': 1000,
+                   'MIN_SIZE': 8,
+                   'POST_NMS_TOP_N_TEST': 300,
+                   'POST_NMS_TOP_N_TRAIN': 2000,
+                   'PRE_NMS_TOP_N_TEST': 6000,
+                   'PRE_NMS_TOP_N_TRAIN': 12000,
+                   'REG_LOSS_WEIGHT': 1,
+                   'USE_FPN': False},
+           'TAG_ON': True,
+           'USE_3D_FUSION': True},
+ 'SOLVER': {'BASE_LR': 0.00283,
+            'CHECKPOINT_PERIOD': 1,
+            'CLIP_GRADIENT': 10.0,
+            'IMS_PER_BATCH': 4,
+            'MAX_EPOCH': 8,
+            'SHOW_LOSS_ITER': 100,
+            'STEPS': [4, 6],
+            'WARMUP_ITERS': 0,
+            'WEIGHT_DECAY': 0.0005},
+ 'TEST': {'COMPUTE_DET_ACC_PER_TAG': False,
+          'EVAL_SEG_TAG_ON_GT': True,
+          'IMS_PER_BATCH': 4,
+          'MASK': {'THRESHOLD': 0.5},
+          'MIN_LYMPH_NODE_DIAM': 5,
+          'POSTPROCESS_ON': False,
+          'SHUFFLE': True,
+          'TAG': {'CALIBRATE_TH': True, 'SELECTION_VAL': 0.9},
+          'USE_SAVED_PRED_RES': 'proc',
+          'VISUALIZE': {'DETECTIONS_PER_IMG': 5,
+                        'NMS': 0.3,
+                        'SCORE_THRESH': 0.25,
+                        'SHOW_MASK_HEATMAPS': False,
+                        'SHOW_SCALE': 2}}}
+Using 1 GPUs
+Manual random seed 1
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+252 parent-children relation pairs; 4451 exclusive relation pairs
+DeepLesion train num_images: 22478
+building model ...
+Start training
+epoch 0 iter 0/5620  loss: 4.804  rpn_clsf: 0.698  rpn_reg: 0.011  frcn_clsf: 0.702  frcn_reg: 0.000  mask: 0.600  tag: 0.695  clsf2: 0.702  tag2: 0.695  ohem: 0.701  time: 0.541  lr: 0.00283
+epoch 0 iter 100/5620  loss: 3.035  rpn_clsf: 0.441  rpn_reg: 0.025  frcn_clsf: 0.147  frcn_reg: 0.001  mask: 0.343  tag: 0.567  clsf2: 0.150  tag2: 0.568  ohem: 0.602  time: 0.181  lr: 0.00283
+epoch 0 iter 200/5620  loss: 2.831  rpn_clsf: 0.269  rpn_reg: 0.026  frcn_clsf: 0.195  frcn_reg: 0.003  mask: 0.291  tag: 0.577  clsf2: 0.197  tag2: 0.609  ohem: 0.562  time: 0.183  lr: 0.00283
+epoch 0 iter 300/5620  loss: 2.759  rpn_clsf: 0.218  rpn_reg: 0.021  frcn_clsf: 0.246  frcn_reg: 0.006  mask: 0.273  tag: 0.564  clsf2: 0.246  tag2: 0.558  ohem: 0.537  time: 0.183  lr: 0.00283
+epoch 0 iter 400/5620  loss: 2.931  rpn_clsf: 0.188  rpn_reg: 0.020  frcn_clsf: 0.295  frcn_reg: 0.008  mask: 0.253  tag: 0.611  clsf2: 0.306  tag2: 0.543  ohem: 0.527  time: 0.192  lr: 0.00283
+epoch 0 iter 500/5620  loss: 2.746  rpn_clsf: 0.153  rpn_reg: 0.021  frcn_clsf: 0.314  frcn_reg: 0.009  mask: 0.234  tag: 0.504  clsf2: 0.322  tag2: 0.499  ohem: 0.502  time: 0.189  lr: 0.00283
+epoch 0 iter 600/5620  loss: 2.663  rpn_clsf: 0.132  rpn_reg: 0.021  frcn_clsf: 0.302  frcn_reg: 0.009  mask: 0.232  tag: 0.560  clsf2: 0.308  tag2: 0.469  ohem: 0.512  time: 0.191  lr: 0.00283
+epoch 0 iter 700/5620  loss: 2.729  rpn_clsf: 0.138  rpn_reg: 0.028  frcn_clsf: 0.296  frcn_reg: 0.009  mask: 0.215  tag: 0.532  clsf2: 0.297  tag2: 0.549  ohem: 0.493  time: 0.186  lr: 0.00283
+epoch 0 iter 800/5620  loss: 2.698  rpn_clsf: 0.109  rpn_reg: 0.022  frcn_clsf: 0.289  frcn_reg: 0.009  mask: 0.226  tag: 0.523  clsf2: 0.295  tag2: 0.503  ohem: 0.500  time: 0.185  lr: 0.00283
+epoch 0 iter 900/5620  loss: 2.609  rpn_clsf: 0.109  rpn_reg: 0.021  frcn_clsf: 0.292  frcn_reg: 0.009  mask: 0.216  tag: 0.430  clsf2: 0.295  tag2: 0.416  ohem: 0.505  time: 0.189  lr: 0.00283
+epoch 0 iter 1000/5620  loss: 2.500  rpn_clsf: 0.094  rpn_reg: 0.017  frcn_clsf: 0.278  frcn_reg: 0.009  mask: 0.224  tag: 0.412  clsf2: 0.300  tag2: 0.402  ohem: 0.493  time: 0.192  lr: 0.00283
+epoch 0 iter 1100/5620  loss: 2.418  rpn_clsf: 0.081  rpn_reg: 0.018  frcn_clsf: 0.271  frcn_reg: 0.009  mask: 0.200  tag: 0.461  clsf2: 0.274  tag2: 0.442  ohem: 0.513  time: 0.190  lr: 0.00283
+epoch 0 iter 1200/5620  loss: 2.604  rpn_clsf: 0.098  rpn_reg: 0.021  frcn_clsf: 0.285  frcn_reg: 0.009  mask: 0.216  tag: 0.499  clsf2: 0.299  tag2: 0.481  ohem: 0.494  time: 0.190  lr: 0.00283
+epoch 0 iter 1300/5620  loss: 2.597  rpn_clsf: 0.104  rpn_reg: 0.022  frcn_clsf: 0.276  frcn_reg: 0.008  mask: 0.225  tag: 0.472  clsf2: 0.307  tag2: 0.462  ohem: 0.495  time: 0.185  lr: 0.00283
+epoch 0 iter 1400/5620  loss: 2.381  rpn_clsf: 0.078  rpn_reg: 0.018  frcn_clsf: 0.251  frcn_reg: 0.008  mask: 0.196  tag: 0.474  clsf2: 0.265  tag2: 0.423  ohem: 0.498  time: 0.186  lr: 0.00283
+epoch 0 iter 1500/5620  loss: 2.460  rpn_clsf: 0.086  rpn_reg: 0.019  frcn_clsf: 0.267  frcn_reg: 0.008  mask: 0.199  tag: 0.454  clsf2: 0.279  tag2: 0.398  ohem: 0.522  time: 0.190  lr: 0.00283
+epoch 0 iter 1600/5620  loss: 2.436  rpn_clsf: 0.077  rpn_reg: 0.015  frcn_clsf: 0.278  frcn_reg: 0.008  mask: 0.226  tag: 0.440  clsf2: 0.289  tag2: 0.414  ohem: 0.505  time: 0.189  lr: 0.00283
+epoch 0 iter 1700/5620  loss: 2.357  rpn_clsf: 0.075  rpn_reg: 0.020  frcn_clsf: 0.269  frcn_reg: 0.007  mask: 0.195  tag: 0.431  clsf2: 0.283  tag2: 0.394  ohem: 0.525  time: 0.192  lr: 0.00283
+epoch 0 iter 1800/5620  loss: 2.356  rpn_clsf: 0.075  rpn_reg: 0.018  frcn_clsf: 0.252  frcn_reg: 0.008  mask: 0.194  tag: 0.441  clsf2: 0.254  tag2: 0.379  ohem: 0.522  time: 0.192  lr: 0.00283
+epoch 0 iter 1900/5620  loss: 2.475  rpn_clsf: 0.080  rpn_reg: 0.019  frcn_clsf: 0.272  frcn_reg: 0.008  mask: 0.191  tag: 0.476  clsf2: 0.281  tag2: 0.401  ohem: 0.508  time: 0.193  lr: 0.00283
+epoch 0 iter 2000/5620  loss: 2.346  rpn_clsf: 0.079  rpn_reg: 0.019  frcn_clsf: 0.253  frcn_reg: 0.007  mask: 0.192  tag: 0.451  clsf2: 0.260  tag2: 0.422  ohem: 0.532  time: 0.188  lr: 0.00283
+epoch 0 iter 2100/5620  loss: 2.321  rpn_clsf: 0.077  rpn_reg: 0.016  frcn_clsf: 0.237  frcn_reg: 0.007  mask: 0.193  tag: 0.420  clsf2: 0.256  tag2: 0.356  ohem: 0.517  time: 0.188  lr: 0.00283
+epoch 0 iter 2200/5620  loss: 2.254  rpn_clsf: 0.080  rpn_reg: 0.018  frcn_clsf: 0.255  frcn_reg: 0.007  mask: 0.190  tag: 0.392  clsf2: 0.266  tag2: 0.383  ohem: 0.509  time: 0.189  lr: 0.00283
+epoch 0 iter 2300/5620  loss: 2.357  rpn_clsf: 0.083  rpn_reg: 0.026  frcn_clsf: 0.268  frcn_reg: 0.007  mask: 0.180  tag: 0.432  clsf2: 0.287  tag2: 0.367  ohem: 0.514  time: 0.191  lr: 0.00283
+epoch 0 iter 2400/5620  loss: 2.354  rpn_clsf: 0.069  rpn_reg: 0.021  frcn_clsf: 0.259  frcn_reg: 0.007  mask: 0.187  tag: 0.440  clsf2: 0.274  tag2: 0.406  ohem: 0.530  time: 0.187  lr: 0.00283
+epoch 0 iter 2500/5620  loss: 2.237  rpn_clsf: 0.069  rpn_reg: 0.016  frcn_clsf: 0.244  frcn_reg: 0.007  mask: 0.190  tag: 0.399  clsf2: 0.261  tag2: 0.352  ohem: 0.502  time: 0.190  lr: 0.00283
+epoch 0 iter 2600/5620  loss: 2.228  rpn_clsf: 0.071  rpn_reg: 0.020  frcn_clsf: 0.280  frcn_reg: 0.007  mask: 0.201  tag: 0.381  clsf2: 0.288  tag2: 0.331  ohem: 0.553  time: 0.194  lr: 0.00283
+epoch 0 iter 2700/5620  loss: 2.200  rpn_clsf: 0.056  rpn_reg: 0.015  frcn_clsf: 0.234  frcn_reg: 0.007  mask: 0.176  tag: 0.405  clsf2: 0.254  tag2: 0.344  ohem: 0.509  time: 0.188  lr: 0.00283
+epoch 0 iter 2800/5620  loss: 2.281  rpn_clsf: 0.071  rpn_reg: 0.021  frcn_clsf: 0.266  frcn_reg: 0.007  mask: 0.184  tag: 0.404  clsf2: 0.277  tag2: 0.336  ohem: 0.523  time: 0.189  lr: 0.00283
+epoch 0 iter 2900/5620  loss: 2.226  rpn_clsf: 0.067  rpn_reg: 0.017  frcn_clsf: 0.248  frcn_reg: 0.007  mask: 0.189  tag: 0.377  clsf2: 0.259  tag2: 0.329  ohem: 0.516  time: 0.191  lr: 0.00283
+epoch 0 iter 3000/5620  loss: 2.299  rpn_clsf: 0.064  rpn_reg: 0.020  frcn_clsf: 0.264  frcn_reg: 0.007  mask: 0.186  tag: 0.406  clsf2: 0.270  tag2: 0.351  ohem: 0.547  time: 0.195  lr: 0.00283
+epoch 0 iter 3100/5620  loss: 2.195  rpn_clsf: 0.065  rpn_reg: 0.015  frcn_clsf: 0.240  frcn_reg: 0.007  mask: 0.174  tag: 0.406  clsf2: 0.253  tag2: 0.368  ohem: 0.519  time: 0.190  lr: 0.00283
+epoch 0 iter 3200/5620  loss: 2.224  rpn_clsf: 0.065  rpn_reg: 0.015  frcn_clsf: 0.250  frcn_reg: 0.007  mask: 0.198  tag: 0.392  clsf2: 0.265  tag2: 0.348  ohem: 0.523  time: 0.190  lr: 0.00283
+epoch 0 iter 3300/5620  loss: 2.262  rpn_clsf: 0.048  rpn_reg: 0.015  frcn_clsf: 0.234  frcn_reg: 0.007  mask: 0.183  tag: 0.375  clsf2: 0.242  tag2: 0.348  ohem: 0.541  time: 0.189  lr: 0.00283
+epoch 0 iter 3400/5620  loss: 2.246  rpn_clsf: 0.060  rpn_reg: 0.016  frcn_clsf: 0.250  frcn_reg: 0.006  mask: 0.175  tag: 0.396  clsf2: 0.255  tag2: 0.355  ohem: 0.512  time: 0.189  lr: 0.00283
+epoch 0 iter 3500/5620  loss: 2.087  rpn_clsf: 0.056  rpn_reg: 0.017  frcn_clsf: 0.242  frcn_reg: 0.007  mask: 0.192  tag: 0.336  clsf2: 0.252  tag2: 0.298  ohem: 0.496  time: 0.187  lr: 0.00283
+epoch 0 iter 3600/5620  loss: 2.146  rpn_clsf: 0.057  rpn_reg: 0.015  frcn_clsf: 0.251  frcn_reg: 0.007  mask: 0.174  tag: 0.348  clsf2: 0.282  tag2: 0.290  ohem: 0.528  time: 0.187  lr: 0.00283
+epoch 0 iter 3700/5620  loss: 2.224  rpn_clsf: 0.066  rpn_reg: 0.017  frcn_clsf: 0.241  frcn_reg: 0.007  mask: 0.186  tag: 0.410  clsf2: 0.260  tag2: 0.350  ohem: 0.503  time: 0.193  lr: 0.00283
+epoch 0 iter 3800/5620  loss: 2.255  rpn_clsf: 0.070  rpn_reg: 0.016  frcn_clsf: 0.257  frcn_reg: 0.006  mask: 0.177  tag: 0.351  clsf2: 0.284  tag2: 0.323  ohem: 0.527  time: 0.193  lr: 0.00283
+epoch 0 iter 3900/5620  loss: 2.058  rpn_clsf: 0.054  rpn_reg: 0.016  frcn_clsf: 0.232  frcn_reg: 0.006  mask: 0.175  tag: 0.310  clsf2: 0.252  tag2: 0.287  ohem: 0.483  time: 0.193  lr: 0.00283
+epoch 0 iter 4000/5620  loss: 2.005  rpn_clsf: 0.056  rpn_reg: 0.015  frcn_clsf: 0.238  frcn_reg: 0.007  mask: 0.179  tag: 0.342  clsf2: 0.259  tag2: 0.309  ohem: 0.506  time: 0.186  lr: 0.00283
+epoch 0 iter 4100/5620  loss: 2.188  rpn_clsf: 0.066  rpn_reg: 0.021  frcn_clsf: 0.234  frcn_reg: 0.006  mask: 0.172  tag: 0.375  clsf2: 0.258  tag2: 0.298  ohem: 0.537  time: 0.193  lr: 0.00283
+epoch 0 iter 4200/5620  loss: 2.021  rpn_clsf: 0.055  rpn_reg: 0.015  frcn_clsf: 0.249  frcn_reg: 0.006  mask: 0.177  tag: 0.323  clsf2: 0.271  tag2: 0.298  ohem: 0.505  time: 0.190  lr: 0.00283
+epoch 0 iter 4300/5620  loss: 2.055  rpn_clsf: 0.051  rpn_reg: 0.015  frcn_clsf: 0.226  frcn_reg: 0.006  mask: 0.171  tag: 0.341  clsf2: 0.257  tag2: 0.296  ohem: 0.498  time: 0.189  lr: 0.00283
+epoch 0 iter 4400/5620  loss: 2.085  rpn_clsf: 0.060  rpn_reg: 0.020  frcn_clsf: 0.249  frcn_reg: 0.006  mask: 0.182  tag: 0.330  clsf2: 0.259  tag2: 0.301  ohem: 0.503  time: 0.188  lr: 0.00283
+epoch 0 iter 4500/5620  loss: 2.123  rpn_clsf: 0.053  rpn_reg: 0.016  frcn_clsf: 0.233  frcn_reg: 0.006  mask: 0.173  tag: 0.331  clsf2: 0.245  tag2: 0.302  ohem: 0.534  time: 0.191  lr: 0.00283
+epoch 0 iter 4600/5620  loss: 2.161  rpn_clsf: 0.055  rpn_reg: 0.015  frcn_clsf: 0.237  frcn_reg: 0.006  mask: 0.177  tag: 0.370  clsf2: 0.252  tag2: 0.308  ohem: 0.516  time: 0.192  lr: 0.00283
+epoch 0 iter 4700/5620  loss: 2.039  rpn_clsf: 0.051  rpn_reg: 0.018  frcn_clsf: 0.229  frcn_reg: 0.006  mask: 0.173  tag: 0.372  clsf2: 0.246  tag2: 0.306  ohem: 0.488  time: 0.185  lr: 0.00283
+epoch 0 iter 4800/5620  loss: 2.158  rpn_clsf: 0.048  rpn_reg: 0.014  frcn_clsf: 0.232  frcn_reg: 0.007  mask: 0.173  tag: 0.390  clsf2: 0.233  tag2: 0.316  ohem: 0.511  time: 0.190  lr: 0.00283
+epoch 0 iter 4900/5620  loss: 2.097  rpn_clsf: 0.052  rpn_reg: 0.017  frcn_clsf: 0.229  frcn_reg: 0.006  mask: 0.181  tag: 0.390  clsf2: 0.249  tag2: 0.326  ohem: 0.497  time: 0.188  lr: 0.00283
+epoch 0 iter 5000/5620  loss: 2.132  rpn_clsf: 0.048  rpn_reg: 0.017  frcn_clsf: 0.238  frcn_reg: 0.006  mask: 0.182  tag: 0.356  clsf2: 0.246  tag2: 0.311  ohem: 0.522  time: 0.194  lr: 0.00283
+epoch 0 iter 5100/5620  loss: 2.014  rpn_clsf: 0.058  rpn_reg: 0.017  frcn_clsf: 0.217  frcn_reg: 0.006  mask: 0.173  tag: 0.316  clsf2: 0.241  tag2: 0.292  ohem: 0.505  time: 0.193  lr: 0.00283
+epoch 0 iter 5200/5620  loss: 1.992  rpn_clsf: 0.054  rpn_reg: 0.013  frcn_clsf: 0.213  frcn_reg: 0.006  mask: 0.177  tag: 0.328  clsf2: 0.230  tag2: 0.286  ohem: 0.502  time: 0.190  lr: 0.00283
+epoch 0 iter 5300/5620  loss: 2.084  rpn_clsf: 0.053  rpn_reg: 0.016  frcn_clsf: 0.224  frcn_reg: 0.006  mask: 0.179  tag: 0.323  clsf2: 0.252  tag2: 0.289  ohem: 0.507  time: 0.193  lr: 0.00283
+epoch 0 iter 5400/5620  loss: 1.987  rpn_clsf: 0.049  rpn_reg: 0.014  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.174  tag: 0.336  clsf2: 0.240  tag2: 0.290  ohem: 0.500  time: 0.193  lr: 0.00283
+epoch 0 iter 5500/5620  loss: 1.974  rpn_clsf: 0.056  rpn_reg: 0.016  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.172  tag: 0.300  clsf2: 0.241  tag2: 0.289  ohem: 0.474  time: 0.188  lr: 0.00283
+epoch 0 iter 5600/5620  loss: 2.145  rpn_clsf: 0.058  rpn_reg: 0.018  frcn_clsf: 0.250  frcn_reg: 0.006  mask: 0.180  tag: 0.363  clsf2: 0.279  tag2: 0.290  ohem: 0.509  time: 0.193  lr: 0.00283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_01.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0400 s
+Total inference time: 0:05:49.651688 (0.07298094100132041 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.4817, 0.5916, 0.6806, 0.7538, 0.8128, 0.8615
+mean of [0.5, 1, 2, 4]: 0.6269
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.8955	0.1477	0.4714	0.2726	0.9052	0.2695	0.2451	0.2992	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.4216+-1.3994, 2.1215+-2.3918
+total test time: 361.422770
+
+1: 0.6269
+epoch 1 iter 0/5620  loss: 2.145  rpn_clsf: 0.064  rpn_reg: 0.017  frcn_clsf: 0.241  frcn_reg: 0.007  mask: 0.182  tag: 0.363  clsf2: 0.253  tag2: 0.298  ohem: 0.509  time: 0.194  lr: 0.00283
+epoch 1 iter 100/5620  loss: 1.939  rpn_clsf: 0.049  rpn_reg: 0.017  frcn_clsf: 0.197  frcn_reg: 0.006  mask: 0.169  tag: 0.345  clsf2: 0.221  tag2: 0.294  ohem: 0.513  time: 0.192  lr: 0.00283
+epoch 1 iter 200/5620  loss: 1.997  rpn_clsf: 0.049  rpn_reg: 0.018  frcn_clsf: 0.206  frcn_reg: 0.006  mask: 0.174  tag: 0.313  clsf2: 0.242  tag2: 0.289  ohem: 0.481  time: 0.188  lr: 0.00283
+epoch 1 iter 300/5620  loss: 1.954  rpn_clsf: 0.048  rpn_reg: 0.019  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.169  tag: 0.304  clsf2: 0.217  tag2: 0.272  ohem: 0.534  time: 0.192  lr: 0.00283
+epoch 1 iter 400/5620  loss: 2.020  rpn_clsf: 0.051  rpn_reg: 0.015  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.164  tag: 0.354  clsf2: 0.220  tag2: 0.288  ohem: 0.481  time: 0.193  lr: 0.00283
+epoch 1 iter 500/5620  loss: 1.924  rpn_clsf: 0.046  rpn_reg: 0.016  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.166  tag: 0.297  clsf2: 0.230  tag2: 0.264  ohem: 0.497  time: 0.193  lr: 0.00283
+epoch 1 iter 600/5620  loss: 1.991  rpn_clsf: 0.052  rpn_reg: 0.015  frcn_clsf: 0.213  frcn_reg: 0.006  mask: 0.157  tag: 0.337  clsf2: 0.220  tag2: 0.272  ohem: 0.490  time: 0.198  lr: 0.00283
+epoch 1 iter 700/5620  loss: 2.052  rpn_clsf: 0.052  rpn_reg: 0.013  frcn_clsf: 0.230  frcn_reg: 0.006  mask: 0.171  tag: 0.314  clsf2: 0.284  tag2: 0.266  ohem: 0.479  time: 0.188  lr: 0.00283
+epoch 1 iter 800/5620  loss: 1.945  rpn_clsf: 0.049  rpn_reg: 0.018  frcn_clsf: 0.230  frcn_reg: 0.006  mask: 0.166  tag: 0.309  clsf2: 0.244  tag2: 0.255  ohem: 0.515  time: 0.186  lr: 0.00283
+epoch 1 iter 900/5620  loss: 1.897  rpn_clsf: 0.046  rpn_reg: 0.015  frcn_clsf: 0.211  frcn_reg: 0.006  mask: 0.164  tag: 0.313  clsf2: 0.219  tag2: 0.250  ohem: 0.491  time: 0.190  lr: 0.00283
+epoch 1 iter 1000/5620  loss: 2.046  rpn_clsf: 0.044  rpn_reg: 0.016  frcn_clsf: 0.214  frcn_reg: 0.006  mask: 0.158  tag: 0.348  clsf2: 0.224  tag2: 0.265  ohem: 0.546  time: 0.189  lr: 0.00283
+epoch 1 iter 1100/5620  loss: 1.972  rpn_clsf: 0.053  rpn_reg: 0.016  frcn_clsf: 0.208  frcn_reg: 0.006  mask: 0.157  tag: 0.300  clsf2: 0.235  tag2: 0.251  ohem: 0.530  time: 0.189  lr: 0.00283
+epoch 1 iter 1200/5620  loss: 2.006  rpn_clsf: 0.048  rpn_reg: 0.017  frcn_clsf: 0.235  frcn_reg: 0.006  mask: 0.171  tag: 0.315  clsf2: 0.248  tag2: 0.253  ohem: 0.522  time: 0.190  lr: 0.00283
+epoch 1 iter 1300/5620  loss: 1.942  rpn_clsf: 0.044  rpn_reg: 0.015  frcn_clsf: 0.209  frcn_reg: 0.006  mask: 0.169  tag: 0.308  clsf2: 0.219  tag2: 0.262  ohem: 0.501  time: 0.193  lr: 0.00283
+epoch 1 iter 1400/5620  loss: 1.948  rpn_clsf: 0.041  rpn_reg: 0.018  frcn_clsf: 0.209  frcn_reg: 0.006  mask: 0.167  tag: 0.311  clsf2: 0.218  tag2: 0.274  ohem: 0.522  time: 0.191  lr: 0.00283
+epoch 1 iter 1500/5620  loss: 1.830  rpn_clsf: 0.044  rpn_reg: 0.016  frcn_clsf: 0.212  frcn_reg: 0.006  mask: 0.174  tag: 0.274  clsf2: 0.233  tag2: 0.231  ohem: 0.446  time: 0.192  lr: 0.00283
+epoch 1 iter 1600/5620  loss: 1.731  rpn_clsf: 0.039  rpn_reg: 0.014  frcn_clsf: 0.185  frcn_reg: 0.005  mask: 0.156  tag: 0.259  clsf2: 0.197  tag2: 0.241  ohem: 0.497  time: 0.191  lr: 0.00283
+epoch 1 iter 1700/5620  loss: 1.987  rpn_clsf: 0.042  rpn_reg: 0.016  frcn_clsf: 0.204  frcn_reg: 0.006  mask: 0.168  tag: 0.324  clsf2: 0.239  tag2: 0.263  ohem: 0.533  time: 0.191  lr: 0.00283
+epoch 1 iter 1800/5620  loss: 1.909  rpn_clsf: 0.043  rpn_reg: 0.016  frcn_clsf: 0.215  frcn_reg: 0.006  mask: 0.180  tag: 0.300  clsf2: 0.222  tag2: 0.265  ohem: 0.481  time: 0.189  lr: 0.00283
+epoch 1 iter 1900/5620  loss: 1.863  rpn_clsf: 0.039  rpn_reg: 0.014  frcn_clsf: 0.200  frcn_reg: 0.005  mask: 0.165  tag: 0.296  clsf2: 0.218  tag2: 0.257  ohem: 0.494  time: 0.188  lr: 0.00283
+epoch 1 iter 2000/5620  loss: 2.054  rpn_clsf: 0.039  rpn_reg: 0.015  frcn_clsf: 0.226  frcn_reg: 0.006  mask: 0.166  tag: 0.345  clsf2: 0.231  tag2: 0.274  ohem: 0.517  time: 0.192  lr: 0.00283
+epoch 1 iter 2100/5620  loss: 2.040  rpn_clsf: 0.039  rpn_reg: 0.015  frcn_clsf: 0.228  frcn_reg: 0.006  mask: 0.175  tag: 0.325  clsf2: 0.233  tag2: 0.279  ohem: 0.494  time: 0.190  lr: 0.00283
+epoch 1 iter 2200/5620  loss: 1.773  rpn_clsf: 0.037  rpn_reg: 0.013  frcn_clsf: 0.191  frcn_reg: 0.006  mask: 0.173  tag: 0.261  clsf2: 0.209  tag2: 0.217  ohem: 0.493  time: 0.188  lr: 0.00283
+epoch 1 iter 2300/5620  loss: 1.944  rpn_clsf: 0.035  rpn_reg: 0.013  frcn_clsf: 0.220  frcn_reg: 0.006  mask: 0.178  tag: 0.296  clsf2: 0.253  tag2: 0.247  ohem: 0.462  time: 0.193  lr: 0.00283
+epoch 1 iter 2400/5620  loss: 1.874  rpn_clsf: 0.038  rpn_reg: 0.016  frcn_clsf: 0.213  frcn_reg: 0.006  mask: 0.159  tag: 0.312  clsf2: 0.234  tag2: 0.252  ohem: 0.463  time: 0.190  lr: 0.00283
+epoch 1 iter 2500/5620  loss: 1.957  rpn_clsf: 0.043  rpn_reg: 0.015  frcn_clsf: 0.206  frcn_reg: 0.006  mask: 0.158  tag: 0.328  clsf2: 0.218  tag2: 0.268  ohem: 0.500  time: 0.187  lr: 0.00283
+epoch 1 iter 2600/5620  loss: 1.934  rpn_clsf: 0.037  rpn_reg: 0.016  frcn_clsf: 0.242  frcn_reg: 0.006  mask: 0.172  tag: 0.301  clsf2: 0.245  tag2: 0.257  ohem: 0.508  time: 0.191  lr: 0.00283
+epoch 1 iter 2700/5620  loss: 1.770  rpn_clsf: 0.042  rpn_reg: 0.016  frcn_clsf: 0.189  frcn_reg: 0.006  mask: 0.157  tag: 0.292  clsf2: 0.191  tag2: 0.236  ohem: 0.476  time: 0.187  lr: 0.00283
+epoch 1 iter 2800/5620  loss: 2.060  rpn_clsf: 0.046  rpn_reg: 0.018  frcn_clsf: 0.219  frcn_reg: 0.006  mask: 0.166  tag: 0.338  clsf2: 0.233  tag2: 0.272  ohem: 0.511  time: 0.190  lr: 0.00283
+epoch 1 iter 2900/5620  loss: 1.901  rpn_clsf: 0.040  rpn_reg: 0.015  frcn_clsf: 0.216  frcn_reg: 0.006  mask: 0.168  tag: 0.333  clsf2: 0.232  tag2: 0.256  ohem: 0.493  time: 0.189  lr: 0.00283
+epoch 1 iter 3000/5620  loss: 1.906  rpn_clsf: 0.046  rpn_reg: 0.016  frcn_clsf: 0.212  frcn_reg: 0.006  mask: 0.156  tag: 0.329  clsf2: 0.223  tag2: 0.276  ohem: 0.477  time: 0.191  lr: 0.00283
+epoch 1 iter 3100/5620  loss: 1.995  rpn_clsf: 0.036  rpn_reg: 0.014  frcn_clsf: 0.203  frcn_reg: 0.006  mask: 0.163  tag: 0.366  clsf2: 0.207  tag2: 0.284  ohem: 0.510  time: 0.187  lr: 0.00283
+epoch 1 iter 3200/5620  loss: 1.968  rpn_clsf: 0.046  rpn_reg: 0.015  frcn_clsf: 0.212  frcn_reg: 0.006  mask: 0.166  tag: 0.355  clsf2: 0.259  tag2: 0.285  ohem: 0.499  time: 0.188  lr: 0.00283
+epoch 1 iter 3300/5620  loss: 1.788  rpn_clsf: 0.041  rpn_reg: 0.017  frcn_clsf: 0.217  frcn_reg: 0.006  mask: 0.163  tag: 0.281  clsf2: 0.227  tag2: 0.233  ohem: 0.459  time: 0.192  lr: 0.00283
+epoch 1 iter 3400/5620  loss: 1.956  rpn_clsf: 0.038  rpn_reg: 0.014  frcn_clsf: 0.221  frcn_reg: 0.006  mask: 0.166  tag: 0.331  clsf2: 0.245  tag2: 0.255  ohem: 0.528  time: 0.188  lr: 0.00283
+epoch 1 iter 3500/5620  loss: 1.899  rpn_clsf: 0.044  rpn_reg: 0.014  frcn_clsf: 0.221  frcn_reg: 0.006  mask: 0.175  tag: 0.274  clsf2: 0.242  tag2: 0.244  ohem: 0.474  time: 0.193  lr: 0.00283
+epoch 1 iter 3600/5620  loss: 1.914  rpn_clsf: 0.036  rpn_reg: 0.014  frcn_clsf: 0.203  frcn_reg: 0.006  mask: 0.167  tag: 0.324  clsf2: 0.226  tag2: 0.279  ohem: 0.498  time: 0.188  lr: 0.00283
+epoch 1 iter 3700/5620  loss: 1.898  rpn_clsf: 0.037  rpn_reg: 0.014  frcn_clsf: 0.223  frcn_reg: 0.006  mask: 0.158  tag: 0.300  clsf2: 0.239  tag2: 0.247  ohem: 0.476  time: 0.193  lr: 0.00283
+epoch 1 iter 3800/5620  loss: 1.978  rpn_clsf: 0.039  rpn_reg: 0.015  frcn_clsf: 0.210  frcn_reg: 0.006  mask: 0.165  tag: 0.328  clsf2: 0.230  tag2: 0.265  ohem: 0.517  time: 0.192  lr: 0.00283
+epoch 1 iter 3900/5620  loss: 1.981  rpn_clsf: 0.041  rpn_reg: 0.013  frcn_clsf: 0.215  frcn_reg: 0.006  mask: 0.165  tag: 0.350  clsf2: 0.236  tag2: 0.284  ohem: 0.487  time: 0.188  lr: 0.00283
+epoch 1 iter 4000/5620  loss: 1.928  rpn_clsf: 0.041  rpn_reg: 0.016  frcn_clsf: 0.211  frcn_reg: 0.006  mask: 0.163  tag: 0.313  clsf2: 0.230  tag2: 0.252  ohem: 0.506  time: 0.187  lr: 0.00283
+epoch 1 iter 4100/5620  loss: 1.939  rpn_clsf: 0.038  rpn_reg: 0.016  frcn_clsf: 0.193  frcn_reg: 0.006  mask: 0.166  tag: 0.325  clsf2: 0.208  tag2: 0.279  ohem: 0.534  time: 0.192  lr: 0.00283
+epoch 1 iter 4200/5620  loss: 1.919  rpn_clsf: 0.035  rpn_reg: 0.016  frcn_clsf: 0.192  frcn_reg: 0.006  mask: 0.157  tag: 0.350  clsf2: 0.207  tag2: 0.276  ohem: 0.481  time: 0.189  lr: 0.00283
+epoch 1 iter 4300/5620  loss: 1.919  rpn_clsf: 0.031  rpn_reg: 0.013  frcn_clsf: 0.206  frcn_reg: 0.006  mask: 0.171  tag: 0.308  clsf2: 0.221  tag2: 0.268  ohem: 0.503  time: 0.191  lr: 0.00283
+epoch 1 iter 4400/5620  loss: 1.978  rpn_clsf: 0.037  rpn_reg: 0.014  frcn_clsf: 0.205  frcn_reg: 0.006  mask: 0.157  tag: 0.340  clsf2: 0.216  tag2: 0.287  ohem: 0.542  time: 0.190  lr: 0.00283
+epoch 1 iter 4500/5620  loss: 1.998  rpn_clsf: 0.044  rpn_reg: 0.015  frcn_clsf: 0.216  frcn_reg: 0.005  mask: 0.164  tag: 0.344  clsf2: 0.237  tag2: 0.270  ohem: 0.521  time: 0.193  lr: 0.00283
+epoch 1 iter 4600/5620  loss: 2.047  rpn_clsf: 0.035  rpn_reg: 0.016  frcn_clsf: 0.197  frcn_reg: 0.006  mask: 0.169  tag: 0.359  clsf2: 0.234  tag2: 0.291  ohem: 0.552  time: 0.191  lr: 0.00283
+epoch 1 iter 4700/5620  loss: 1.828  rpn_clsf: 0.036  rpn_reg: 0.014  frcn_clsf: 0.204  frcn_reg: 0.005  mask: 0.154  tag: 0.280  clsf2: 0.216  tag2: 0.257  ohem: 0.480  time: 0.185  lr: 0.00283
+epoch 1 iter 4800/5620  loss: 1.921  rpn_clsf: 0.031  rpn_reg: 0.014  frcn_clsf: 0.180  frcn_reg: 0.005  mask: 0.154  tag: 0.310  clsf2: 0.207  tag2: 0.275  ohem: 0.510  time: 0.189  lr: 0.00283
+epoch 1 iter 4900/5620  loss: 1.887  rpn_clsf: 0.035  rpn_reg: 0.013  frcn_clsf: 0.204  frcn_reg: 0.005  mask: 0.166  tag: 0.296  clsf2: 0.213  tag2: 0.247  ohem: 0.473  time: 0.189  lr: 0.00283
+epoch 1 iter 5000/5620  loss: 1.877  rpn_clsf: 0.031  rpn_reg: 0.015  frcn_clsf: 0.195  frcn_reg: 0.005  mask: 0.165  tag: 0.300  clsf2: 0.204  tag2: 0.249  ohem: 0.490  time: 0.190  lr: 0.00283
+epoch 1 iter 5100/5620  loss: 1.884  rpn_clsf: 0.039  rpn_reg: 0.014  frcn_clsf: 0.196  frcn_reg: 0.006  mask: 0.158  tag: 0.259  clsf2: 0.216  tag2: 0.235  ohem: 0.494  time: 0.187  lr: 0.00283
+epoch 1 iter 5200/5620  loss: 1.933  rpn_clsf: 0.034  rpn_reg: 0.013  frcn_clsf: 0.187  frcn_reg: 0.005  mask: 0.167  tag: 0.312  clsf2: 0.205  tag2: 0.248  ohem: 0.515  time: 0.190  lr: 0.00283
+epoch 1 iter 5300/5620  loss: 1.992  rpn_clsf: 0.040  rpn_reg: 0.016  frcn_clsf: 0.207  frcn_reg: 0.005  mask: 0.172  tag: 0.325  clsf2: 0.235  tag2: 0.265  ohem: 0.513  time: 0.192  lr: 0.00283
+epoch 1 iter 5400/5620  loss: 1.778  rpn_clsf: 0.039  rpn_reg: 0.016  frcn_clsf: 0.194  frcn_reg: 0.005  mask: 0.160  tag: 0.270  clsf2: 0.203  tag2: 0.226  ohem: 0.503  time: 0.190  lr: 0.00283
+epoch 1 iter 5500/5620  loss: 1.899  rpn_clsf: 0.034  rpn_reg: 0.015  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.167  tag: 0.327  clsf2: 0.202  tag2: 0.260  ohem: 0.516  time: 0.187  lr: 0.00283
+epoch 1 iter 5600/5620  loss: 1.824  rpn_clsf: 0.038  rpn_reg: 0.015  frcn_clsf: 0.206  frcn_reg: 0.006  mask: 0.165  tag: 0.291  clsf2: 0.221  tag2: 0.257  ohem: 0.444  time: 0.189  lr: 0.00283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_02.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0394 s
+Total inference time: 0:05:57.709532 (0.07466281194374373 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.5621, 0.6691, 0.7553, 0.8214, 0.8715, 0.9069
+mean of [0.5, 1, 2, 4]: 0.7020
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9150	0.2285	0.3286	0.4092	0.9197	0.3442	0.2906	0.4222	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.4526+-1.3113, 2.0989+-2.5099
+total test time: 368.689290
+
+1: 0.6269
+2: 0.7020
+epoch 2 iter 0/5620  loss: 1.795  rpn_clsf: 0.032  rpn_reg: 0.013  frcn_clsf: 0.206  frcn_reg: 0.006  mask: 0.165  tag: 0.291  clsf2: 0.220  tag2: 0.248  ohem: 0.444  time: 0.193  lr: 0.00283
+epoch 2 iter 100/5620  loss: 1.907  rpn_clsf: 0.035  rpn_reg: 0.013  frcn_clsf: 0.208  frcn_reg: 0.005  mask: 0.162  tag: 0.276  clsf2: 0.220  tag2: 0.241  ohem: 0.485  time: 0.193  lr: 0.00283
+epoch 2 iter 200/5620  loss: 1.785  rpn_clsf: 0.037  rpn_reg: 0.015  frcn_clsf: 0.195  frcn_reg: 0.005  mask: 0.156  tag: 0.326  clsf2: 0.204  tag2: 0.228  ohem: 0.528  time: 0.187  lr: 0.00283
+epoch 2 iter 300/5620  loss: 1.865  rpn_clsf: 0.039  rpn_reg: 0.016  frcn_clsf: 0.174  frcn_reg: 0.006  mask: 0.165  tag: 0.315  clsf2: 0.206  tag2: 0.233  ohem: 0.468  time: 0.188  lr: 0.00283
+epoch 2 iter 400/5620  loss: 1.738  rpn_clsf: 0.040  rpn_reg: 0.018  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.153  tag: 0.254  clsf2: 0.213  tag2: 0.221  ohem: 0.461  time: 0.192  lr: 0.00283
+epoch 2 iter 500/5620  loss: 1.748  rpn_clsf: 0.027  rpn_reg: 0.014  frcn_clsf: 0.183  frcn_reg: 0.005  mask: 0.157  tag: 0.296  clsf2: 0.204  tag2: 0.245  ohem: 0.495  time: 0.189  lr: 0.00283
+epoch 2 iter 600/5620  loss: 1.747  rpn_clsf: 0.035  rpn_reg: 0.015  frcn_clsf: 0.182  frcn_reg: 0.005  mask: 0.165  tag: 0.291  clsf2: 0.200  tag2: 0.244  ohem: 0.516  time: 0.192  lr: 0.00283
+epoch 2 iter 700/5620  loss: 1.806  rpn_clsf: 0.033  rpn_reg: 0.013  frcn_clsf: 0.183  frcn_reg: 0.005  mask: 0.166  tag: 0.274  clsf2: 0.194  tag2: 0.248  ohem: 0.498  time: 0.187  lr: 0.00283
+epoch 2 iter 800/5620  loss: 1.851  rpn_clsf: 0.037  rpn_reg: 0.013  frcn_clsf: 0.204  frcn_reg: 0.006  mask: 0.163  tag: 0.284  clsf2: 0.223  tag2: 0.243  ohem: 0.501  time: 0.192  lr: 0.00283
+epoch 2 iter 900/5620  loss: 1.884  rpn_clsf: 0.031  rpn_reg: 0.015  frcn_clsf: 0.178  frcn_reg: 0.005  mask: 0.163  tag: 0.300  clsf2: 0.190  tag2: 0.241  ohem: 0.502  time: 0.188  lr: 0.00283
+epoch 2 iter 1000/5620  loss: 1.873  rpn_clsf: 0.032  rpn_reg: 0.014  frcn_clsf: 0.189  frcn_reg: 0.005  mask: 0.152  tag: 0.314  clsf2: 0.205  tag2: 0.246  ohem: 0.514  time: 0.188  lr: 0.00283
+epoch 2 iter 1100/5620  loss: 1.805  rpn_clsf: 0.030  rpn_reg: 0.015  frcn_clsf: 0.177  frcn_reg: 0.006  mask: 0.163  tag: 0.271  clsf2: 0.196  tag2: 0.229  ohem: 0.475  time: 0.192  lr: 0.00283
+epoch 2 iter 1200/5620  loss: 1.848  rpn_clsf: 0.037  rpn_reg: 0.016  frcn_clsf: 0.193  frcn_reg: 0.005  mask: 0.166  tag: 0.285  clsf2: 0.214  tag2: 0.241  ohem: 0.491  time: 0.188  lr: 0.00283
+epoch 2 iter 1300/5620  loss: 1.821  rpn_clsf: 0.028  rpn_reg: 0.014  frcn_clsf: 0.185  frcn_reg: 0.005  mask: 0.155  tag: 0.279  clsf2: 0.209  tag2: 0.220  ohem: 0.475  time: 0.188  lr: 0.00283
+epoch 2 iter 1400/5620  loss: 1.763  rpn_clsf: 0.036  rpn_reg: 0.013  frcn_clsf: 0.188  frcn_reg: 0.005  mask: 0.162  tag: 0.271  clsf2: 0.205  tag2: 0.213  ohem: 0.419  time: 0.186  lr: 0.00283
+epoch 2 iter 1500/5620  loss: 1.738  rpn_clsf: 0.034  rpn_reg: 0.015  frcn_clsf: 0.194  frcn_reg: 0.005  mask: 0.151  tag: 0.249  clsf2: 0.222  tag2: 0.209  ohem: 0.494  time: 0.192  lr: 0.00283
+epoch 2 iter 1600/5620  loss: 1.804  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.176  frcn_reg: 0.005  mask: 0.149  tag: 0.327  clsf2: 0.189  tag2: 0.253  ohem: 0.515  time: 0.187  lr: 0.00283
+epoch 2 iter 1700/5620  loss: 1.855  rpn_clsf: 0.033  rpn_reg: 0.018  frcn_clsf: 0.183  frcn_reg: 0.005  mask: 0.156  tag: 0.292  clsf2: 0.207  tag2: 0.255  ohem: 0.477  time: 0.189  lr: 0.00283
+epoch 2 iter 1800/5620  loss: 1.953  rpn_clsf: 0.033  rpn_reg: 0.012  frcn_clsf: 0.204  frcn_reg: 0.006  mask: 0.161  tag: 0.289  clsf2: 0.208  tag2: 0.238  ohem: 0.513  time: 0.188  lr: 0.00283
+epoch 2 iter 1900/5620  loss: 1.760  rpn_clsf: 0.031  rpn_reg: 0.013  frcn_clsf: 0.188  frcn_reg: 0.006  mask: 0.167  tag: 0.266  clsf2: 0.208  tag2: 0.230  ohem: 0.477  time: 0.193  lr: 0.00283
+epoch 2 iter 2000/5620  loss: 1.698  rpn_clsf: 0.027  rpn_reg: 0.013  frcn_clsf: 0.162  frcn_reg: 0.005  mask: 0.158  tag: 0.281  clsf2: 0.168  tag2: 0.232  ohem: 0.481  time: 0.186  lr: 0.00283
+epoch 2 iter 2100/5620  loss: 1.825  rpn_clsf: 0.027  rpn_reg: 0.015  frcn_clsf: 0.189  frcn_reg: 0.006  mask: 0.164  tag: 0.270  clsf2: 0.200  tag2: 0.224  ohem: 0.502  time: 0.189  lr: 0.00283
+epoch 2 iter 2200/5620  loss: 1.847  rpn_clsf: 0.034  rpn_reg: 0.013  frcn_clsf: 0.201  frcn_reg: 0.005  mask: 0.158  tag: 0.273  clsf2: 0.218  tag2: 0.250  ohem: 0.520  time: 0.187  lr: 0.00283
+epoch 2 iter 2300/5620  loss: 1.757  rpn_clsf: 0.031  rpn_reg: 0.013  frcn_clsf: 0.195  frcn_reg: 0.005  mask: 0.167  tag: 0.293  clsf2: 0.203  tag2: 0.229  ohem: 0.493  time: 0.192  lr: 0.00283
+epoch 2 iter 2400/5620  loss: 1.785  rpn_clsf: 0.032  rpn_reg: 0.015  frcn_clsf: 0.191  frcn_reg: 0.005  mask: 0.157  tag: 0.303  clsf2: 0.209  tag2: 0.251  ohem: 0.475  time: 0.188  lr: 0.00283
+epoch 2 iter 2500/5620  loss: 1.812  rpn_clsf: 0.032  rpn_reg: 0.015  frcn_clsf: 0.187  frcn_reg: 0.005  mask: 0.162  tag: 0.264  clsf2: 0.210  tag2: 0.234  ohem: 0.503  time: 0.187  lr: 0.00283
+epoch 2 iter 2600/5620  loss: 1.720  rpn_clsf: 0.033  rpn_reg: 0.013  frcn_clsf: 0.189  frcn_reg: 0.005  mask: 0.162  tag: 0.286  clsf2: 0.221  tag2: 0.221  ohem: 0.484  time: 0.187  lr: 0.00283
+epoch 2 iter 2700/5620  loss: 1.774  rpn_clsf: 0.031  rpn_reg: 0.016  frcn_clsf: 0.193  frcn_reg: 0.005  mask: 0.160  tag: 0.281  clsf2: 0.210  tag2: 0.255  ohem: 0.497  time: 0.193  lr: 0.00283
+epoch 2 iter 2800/5620  loss: 1.863  rpn_clsf: 0.035  rpn_reg: 0.013  frcn_clsf: 0.211  frcn_reg: 0.005  mask: 0.152  tag: 0.300  clsf2: 0.230  tag2: 0.258  ohem: 0.448  time: 0.193  lr: 0.00283
+epoch 2 iter 2900/5620  loss: 1.753  rpn_clsf: 0.035  rpn_reg: 0.014  frcn_clsf: 0.201  frcn_reg: 0.005  mask: 0.158  tag: 0.252  clsf2: 0.216  tag2: 0.228  ohem: 0.454  time: 0.192  lr: 0.00283
+epoch 2 iter 3000/5620  loss: 1.649  rpn_clsf: 0.035  rpn_reg: 0.014  frcn_clsf: 0.197  frcn_reg: 0.006  mask: 0.161  tag: 0.261  clsf2: 0.225  tag2: 0.201  ohem: 0.424  time: 0.187  lr: 0.00283
+epoch 2 iter 3100/5620  loss: 1.856  rpn_clsf: 0.037  rpn_reg: 0.014  frcn_clsf: 0.204  frcn_reg: 0.005  mask: 0.164  tag: 0.308  clsf2: 0.230  tag2: 0.239  ohem: 0.537  time: 0.189  lr: 0.00283
+epoch 2 iter 3200/5620  loss: 1.731  rpn_clsf: 0.029  rpn_reg: 0.015  frcn_clsf: 0.197  frcn_reg: 0.005  mask: 0.158  tag: 0.307  clsf2: 0.206  tag2: 0.229  ohem: 0.480  time: 0.191  lr: 0.00283
+epoch 2 iter 3300/5620  loss: 1.849  rpn_clsf: 0.030  rpn_reg: 0.013  frcn_clsf: 0.195  frcn_reg: 0.006  mask: 0.160  tag: 0.330  clsf2: 0.212  tag2: 0.229  ohem: 0.450  time: 0.189  lr: 0.00283
+epoch 2 iter 3400/5620  loss: 1.838  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.174  frcn_reg: 0.005  mask: 0.151  tag: 0.285  clsf2: 0.188  tag2: 0.255  ohem: 0.515  time: 0.192  lr: 0.00283
+epoch 2 iter 3500/5620  loss: 1.752  rpn_clsf: 0.029  rpn_reg: 0.014  frcn_clsf: 0.177  frcn_reg: 0.005  mask: 0.161  tag: 0.274  clsf2: 0.191  tag2: 0.236  ohem: 0.416  time: 0.190  lr: 0.00283
+epoch 2 iter 3600/5620  loss: 1.777  rpn_clsf: 0.034  rpn_reg: 0.015  frcn_clsf: 0.186  frcn_reg: 0.005  mask: 0.158  tag: 0.262  clsf2: 0.207  tag2: 0.229  ohem: 0.524  time: 0.186  lr: 0.00283
+epoch 2 iter 3700/5620  loss: 1.783  rpn_clsf: 0.037  rpn_reg: 0.015  frcn_clsf: 0.201  frcn_reg: 0.005  mask: 0.157  tag: 0.279  clsf2: 0.207  tag2: 0.226  ohem: 0.478  time: 0.186  lr: 0.00283
+epoch 2 iter 3800/5620  loss: 1.801  rpn_clsf: 0.030  rpn_reg: 0.013  frcn_clsf: 0.192  frcn_reg: 0.006  mask: 0.157  tag: 0.295  clsf2: 0.213  tag2: 0.242  ohem: 0.441  time: 0.188  lr: 0.00283
+epoch 2 iter 3900/5620  loss: 1.808  rpn_clsf: 0.033  rpn_reg: 0.015  frcn_clsf: 0.207  frcn_reg: 0.006  mask: 0.164  tag: 0.255  clsf2: 0.231  tag2: 0.219  ohem: 0.421  time: 0.187  lr: 0.00283
+epoch 2 iter 4000/5620  loss: 1.838  rpn_clsf: 0.032  rpn_reg: 0.013  frcn_clsf: 0.208  frcn_reg: 0.005  mask: 0.166  tag: 0.283  clsf2: 0.229  tag2: 0.227  ohem: 0.467  time: 0.188  lr: 0.00283
+epoch 2 iter 4100/5620  loss: 1.737  rpn_clsf: 0.039  rpn_reg: 0.015  frcn_clsf: 0.200  frcn_reg: 0.005  mask: 0.161  tag: 0.274  clsf2: 0.217  tag2: 0.245  ohem: 0.436  time: 0.193  lr: 0.00283
+epoch 2 iter 4200/5620  loss: 1.834  rpn_clsf: 0.026  rpn_reg: 0.016  frcn_clsf: 0.194  frcn_reg: 0.005  mask: 0.159  tag: 0.280  clsf2: 0.200  tag2: 0.225  ohem: 0.525  time: 0.186  lr: 0.00283
+epoch 2 iter 4300/5620  loss: 1.829  rpn_clsf: 0.031  rpn_reg: 0.016  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.156  tag: 0.314  clsf2: 0.214  tag2: 0.248  ohem: 0.456  time: 0.192  lr: 0.00283
+epoch 2 iter 4400/5620  loss: 1.786  rpn_clsf: 0.039  rpn_reg: 0.015  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.160  tag: 0.324  clsf2: 0.202  tag2: 0.245  ohem: 0.451  time: 0.191  lr: 0.00283
+epoch 2 iter 4500/5620  loss: 1.722  rpn_clsf: 0.033  rpn_reg: 0.015  frcn_clsf: 0.201  frcn_reg: 0.005  mask: 0.164  tag: 0.247  clsf2: 0.212  tag2: 0.213  ohem: 0.471  time: 0.185  lr: 0.00283
+epoch 2 iter 4600/5620  loss: 1.847  rpn_clsf: 0.032  rpn_reg: 0.015  frcn_clsf: 0.193  frcn_reg: 0.005  mask: 0.161  tag: 0.328  clsf2: 0.196  tag2: 0.244  ohem: 0.520  time: 0.188  lr: 0.00283
+epoch 2 iter 4700/5620  loss: 1.737  rpn_clsf: 0.033  rpn_reg: 0.012  frcn_clsf: 0.191  frcn_reg: 0.005  mask: 0.152  tag: 0.269  clsf2: 0.214  tag2: 0.228  ohem: 0.468  time: 0.188  lr: 0.00283
+epoch 2 iter 4800/5620  loss: 1.736  rpn_clsf: 0.026  rpn_reg: 0.013  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.161  tag: 0.258  clsf2: 0.216  tag2: 0.219  ohem: 0.477  time: 0.186  lr: 0.00283
+epoch 2 iter 4900/5620  loss: 1.809  rpn_clsf: 0.028  rpn_reg: 0.013  frcn_clsf: 0.179  frcn_reg: 0.005  mask: 0.159  tag: 0.317  clsf2: 0.200  tag2: 0.249  ohem: 0.477  time: 0.195  lr: 0.00283
+epoch 2 iter 5000/5620  loss: 1.811  rpn_clsf: 0.035  rpn_reg: 0.014  frcn_clsf: 0.191  frcn_reg: 0.005  mask: 0.147  tag: 0.266  clsf2: 0.218  tag2: 0.223  ohem: 0.488  time: 0.190  lr: 0.00283
+epoch 2 iter 5100/5620  loss: 1.812  rpn_clsf: 0.034  rpn_reg: 0.014  frcn_clsf: 0.185  frcn_reg: 0.005  mask: 0.162  tag: 0.287  clsf2: 0.207  tag2: 0.243  ohem: 0.477  time: 0.193  lr: 0.00283
+epoch 2 iter 5200/5620  loss: 1.714  rpn_clsf: 0.032  rpn_reg: 0.014  frcn_clsf: 0.180  frcn_reg: 0.005  mask: 0.151  tag: 0.245  clsf2: 0.222  tag2: 0.207  ohem: 0.472  time: 0.191  lr: 0.00283
+epoch 2 iter 5300/5620  loss: 1.839  rpn_clsf: 0.032  rpn_reg: 0.013  frcn_clsf: 0.191  frcn_reg: 0.005  mask: 0.159  tag: 0.301  clsf2: 0.196  tag2: 0.240  ohem: 0.463  time: 0.193  lr: 0.00283
+epoch 2 iter 5400/5620  loss: 1.886  rpn_clsf: 0.037  rpn_reg: 0.015  frcn_clsf: 0.206  frcn_reg: 0.005  mask: 0.152  tag: 0.334  clsf2: 0.216  tag2: 0.271  ohem: 0.501  time: 0.190  lr: 0.00283
+epoch 2 iter 5500/5620  loss: 1.752  rpn_clsf: 0.035  rpn_reg: 0.014  frcn_clsf: 0.179  frcn_reg: 0.005  mask: 0.148  tag: 0.290  clsf2: 0.196  tag2: 0.225  ohem: 0.487  time: 0.191  lr: 0.00283
+epoch 2 iter 5600/5620  loss: 1.838  rpn_clsf: 0.038  rpn_reg: 0.013  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.151  tag: 0.280  clsf2: 0.201  tag2: 0.248  ohem: 0.525  time: 0.194  lr: 0.00283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_03.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0396 s
+Total inference time: 0:05:34.473628 (0.06981290498971193 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.5793, 0.6871, 0.7651, 0.8283, 0.8750, 0.9124
+mean of [0.5, 1, 2, 4]: 0.7150
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9147	0.2496	0.3579	0.4606	0.9213	0.3575	0.2817	0.4893	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.4097+-1.4037, 2.0674+-2.5505
+total test time: 344.512416
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+epoch 3 iter 0/5620  loss: 1.726  rpn_clsf: 0.038  rpn_reg: 0.014  frcn_clsf: 0.193  frcn_reg: 0.005  mask: 0.150  tag: 0.267  clsf2: 0.203  tag2: 0.246  ohem: 0.472  time: 0.193  lr: 0.00283
+epoch 3 iter 100/5620  loss: 1.714  rpn_clsf: 0.029  rpn_reg: 0.015  frcn_clsf: 0.163  frcn_reg: 0.005  mask: 0.152  tag: 0.278  clsf2: 0.168  tag2: 0.227  ohem: 0.496  time: 0.193  lr: 0.00283
+epoch 3 iter 200/5620  loss: 1.656  rpn_clsf: 0.028  rpn_reg: 0.013  frcn_clsf: 0.173  frcn_reg: 0.005  mask: 0.154  tag: 0.246  clsf2: 0.198  tag2: 0.205  ohem: 0.478  time: 0.188  lr: 0.00283
+epoch 3 iter 300/5620  loss: 1.723  rpn_clsf: 0.029  rpn_reg: 0.018  frcn_clsf: 0.176  frcn_reg: 0.005  mask: 0.144  tag: 0.263  clsf2: 0.184  tag2: 0.209  ohem: 0.511  time: 0.191  lr: 0.00283
+epoch 3 iter 400/5620  loss: 1.685  rpn_clsf: 0.028  rpn_reg: 0.015  frcn_clsf: 0.169  frcn_reg: 0.004  mask: 0.146  tag: 0.280  clsf2: 0.182  tag2: 0.223  ohem: 0.457  time: 0.189  lr: 0.00283
+epoch 3 iter 500/5620  loss: 1.697  rpn_clsf: 0.028  rpn_reg: 0.013  frcn_clsf: 0.175  frcn_reg: 0.005  mask: 0.163  tag: 0.251  clsf2: 0.190  tag2: 0.206  ohem: 0.474  time: 0.191  lr: 0.00283
+epoch 3 iter 600/5620  loss: 1.649  rpn_clsf: 0.024  rpn_reg: 0.012  frcn_clsf: 0.166  frcn_reg: 0.005  mask: 0.150  tag: 0.288  clsf2: 0.186  tag2: 0.247  ohem: 0.463  time: 0.192  lr: 0.00283
+epoch 3 iter 700/5620  loss: 1.768  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.173  frcn_reg: 0.005  mask: 0.155  tag: 0.281  clsf2: 0.188  tag2: 0.236  ohem: 0.539  time: 0.188  lr: 0.00283
+epoch 3 iter 800/5620  loss: 1.698  rpn_clsf: 0.026  rpn_reg: 0.013  frcn_clsf: 0.161  frcn_reg: 0.005  mask: 0.155  tag: 0.256  clsf2: 0.178  tag2: 0.224  ohem: 0.476  time: 0.187  lr: 0.00283
+epoch 3 iter 900/5620  loss: 1.655  rpn_clsf: 0.031  rpn_reg: 0.014  frcn_clsf: 0.177  frcn_reg: 0.005  mask: 0.150  tag: 0.253  clsf2: 0.188  tag2: 0.207  ohem: 0.497  time: 0.188  lr: 0.00283
+epoch 3 iter 1000/5620  loss: 1.796  rpn_clsf: 0.030  rpn_reg: 0.012  frcn_clsf: 0.189  frcn_reg: 0.005  mask: 0.151  tag: 0.280  clsf2: 0.198  tag2: 0.223  ohem: 0.532  time: 0.192  lr: 0.00283
+epoch 3 iter 1100/5620  loss: 1.746  rpn_clsf: 0.028  rpn_reg: 0.016  frcn_clsf: 0.167  frcn_reg: 0.005  mask: 0.162  tag: 0.317  clsf2: 0.176  tag2: 0.239  ohem: 0.464  time: 0.193  lr: 0.00283
+epoch 3 iter 1200/5620  loss: 1.722  rpn_clsf: 0.028  rpn_reg: 0.012  frcn_clsf: 0.175  frcn_reg: 0.005  mask: 0.171  tag: 0.270  clsf2: 0.186  tag2: 0.223  ohem: 0.485  time: 0.193  lr: 0.00283
+epoch 3 iter 1300/5620  loss: 1.743  rpn_clsf: 0.031  rpn_reg: 0.013  frcn_clsf: 0.166  frcn_reg: 0.005  mask: 0.152  tag: 0.288  clsf2: 0.179  tag2: 0.224  ohem: 0.496  time: 0.187  lr: 0.00283
+epoch 3 iter 1400/5620  loss: 1.721  rpn_clsf: 0.030  rpn_reg: 0.014  frcn_clsf: 0.171  frcn_reg: 0.005  mask: 0.158  tag: 0.259  clsf2: 0.187  tag2: 0.218  ohem: 0.557  time: 0.187  lr: 0.00283
+epoch 3 iter 1500/5620  loss: 1.552  rpn_clsf: 0.028  rpn_reg: 0.013  frcn_clsf: 0.161  frcn_reg: 0.005  mask: 0.161  tag: 0.233  clsf2: 0.176  tag2: 0.187  ohem: 0.434  time: 0.191  lr: 0.00283
+epoch 3 iter 1600/5620  loss: 1.755  rpn_clsf: 0.030  rpn_reg: 0.015  frcn_clsf: 0.179  frcn_reg: 0.005  mask: 0.166  tag: 0.264  clsf2: 0.193  tag2: 0.209  ohem: 0.468  time: 0.192  lr: 0.00283
+epoch 3 iter 1700/5620  loss: 1.687  rpn_clsf: 0.024  rpn_reg: 0.013  frcn_clsf: 0.157  frcn_reg: 0.005  mask: 0.151  tag: 0.292  clsf2: 0.171  tag2: 0.216  ohem: 0.483  time: 0.189  lr: 0.00283
+epoch 3 iter 1800/5620  loss: 1.679  rpn_clsf: 0.023  rpn_reg: 0.012  frcn_clsf: 0.175  frcn_reg: 0.005  mask: 0.152  tag: 0.268  clsf2: 0.204  tag2: 0.229  ohem: 0.532  time: 0.193  lr: 0.00283
+epoch 3 iter 1900/5620  loss: 1.708  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.167  frcn_reg: 0.005  mask: 0.152  tag: 0.281  clsf2: 0.180  tag2: 0.236  ohem: 0.481  time: 0.192  lr: 0.00283
+epoch 3 iter 2000/5620  loss: 1.701  rpn_clsf: 0.035  rpn_reg: 0.012  frcn_clsf: 0.198  frcn_reg: 0.005  mask: 0.168  tag: 0.253  clsf2: 0.212  tag2: 0.217  ohem: 0.471  time: 0.187  lr: 0.00283
+epoch 3 iter 2100/5620  loss: 1.787  rpn_clsf: 0.026  rpn_reg: 0.014  frcn_clsf: 0.184  frcn_reg: 0.005  mask: 0.159  tag: 0.270  clsf2: 0.205  tag2: 0.212  ohem: 0.480  time: 0.189  lr: 0.00283
+epoch 3 iter 2200/5620  loss: 1.643  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.178  frcn_reg: 0.005  mask: 0.153  tag: 0.242  clsf2: 0.190  tag2: 0.198  ohem: 0.462  time: 0.193  lr: 0.00283
+epoch 3 iter 2300/5620  loss: 1.726  rpn_clsf: 0.030  rpn_reg: 0.013  frcn_clsf: 0.171  frcn_reg: 0.005  mask: 0.156  tag: 0.287  clsf2: 0.193  tag2: 0.222  ohem: 0.532  time: 0.192  lr: 0.00283
+epoch 3 iter 2400/5620  loss: 1.663  rpn_clsf: 0.024  rpn_reg: 0.012  frcn_clsf: 0.159  frcn_reg: 0.005  mask: 0.159  tag: 0.276  clsf2: 0.167  tag2: 0.222  ohem: 0.523  time: 0.187  lr: 0.00283
+epoch 3 iter 2500/5620  loss: 1.747  rpn_clsf: 0.025  rpn_reg: 0.014  frcn_clsf: 0.165  frcn_reg: 0.005  mask: 0.160  tag: 0.296  clsf2: 0.170  tag2: 0.244  ohem: 0.500  time: 0.189  lr: 0.00283
+epoch 3 iter 2600/5620  loss: 1.660  rpn_clsf: 0.030  rpn_reg: 0.015  frcn_clsf: 0.169  frcn_reg: 0.005  mask: 0.160  tag: 0.273  clsf2: 0.182  tag2: 0.224  ohem: 0.458  time: 0.191  lr: 0.00283
+epoch 3 iter 2700/5620  loss: 1.791  rpn_clsf: 0.027  rpn_reg: 0.015  frcn_clsf: 0.176  frcn_reg: 0.005  mask: 0.154  tag: 0.270  clsf2: 0.182  tag2: 0.210  ohem: 0.435  time: 0.187  lr: 0.00283
+epoch 3 iter 2800/5620  loss: 1.753  rpn_clsf: 0.030  rpn_reg: 0.014  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.154  tag: 0.263  clsf2: 0.218  tag2: 0.217  ohem: 0.481  time: 0.187  lr: 0.00283
+epoch 3 iter 2900/5620  loss: 1.672  rpn_clsf: 0.030  rpn_reg: 0.014  frcn_clsf: 0.182  frcn_reg: 0.005  mask: 0.154  tag: 0.257  clsf2: 0.204  tag2: 0.223  ohem: 0.506  time: 0.194  lr: 0.00283
+epoch 3 iter 3000/5620  loss: 1.721  rpn_clsf: 0.032  rpn_reg: 0.012  frcn_clsf: 0.186  frcn_reg: 0.005  mask: 0.158  tag: 0.267  clsf2: 0.210  tag2: 0.223  ohem: 0.434  time: 0.191  lr: 0.00283
+epoch 3 iter 3100/5620  loss: 1.602  rpn_clsf: 0.036  rpn_reg: 0.014  frcn_clsf: 0.177  frcn_reg: 0.005  mask: 0.166  tag: 0.240  clsf2: 0.197  tag2: 0.198  ohem: 0.455  time: 0.192  lr: 0.00283
+epoch 3 iter 3200/5620  loss: 1.815  rpn_clsf: 0.031  rpn_reg: 0.016  frcn_clsf: 0.203  frcn_reg: 0.005  mask: 0.160  tag: 0.280  clsf2: 0.214  tag2: 0.208  ohem: 0.507  time: 0.189  lr: 0.00283
+epoch 3 iter 3300/5620  loss: 1.871  rpn_clsf: 0.026  rpn_reg: 0.012  frcn_clsf: 0.182  frcn_reg: 0.005  mask: 0.161  tag: 0.315  clsf2: 0.202  tag2: 0.234  ohem: 0.461  time: 0.191  lr: 0.00283
+epoch 3 iter 3400/5620  loss: 1.848  rpn_clsf: 0.025  rpn_reg: 0.011  frcn_clsf: 0.187  frcn_reg: 0.005  mask: 0.159  tag: 0.289  clsf2: 0.197  tag2: 0.232  ohem: 0.489  time: 0.193  lr: 0.00283
+epoch 3 iter 3500/5620  loss: 1.770  rpn_clsf: 0.027  rpn_reg: 0.012  frcn_clsf: 0.187  frcn_reg: 0.005  mask: 0.153  tag: 0.271  clsf2: 0.213  tag2: 0.228  ohem: 0.465  time: 0.186  lr: 0.00283
+epoch 3 iter 3600/5620  loss: 1.719  rpn_clsf: 0.034  rpn_reg: 0.015  frcn_clsf: 0.195  frcn_reg: 0.005  mask: 0.157  tag: 0.257  clsf2: 0.220  tag2: 0.200  ohem: 0.467  time: 0.185  lr: 0.00283
+epoch 3 iter 3700/5620  loss: 1.868  rpn_clsf: 0.030  rpn_reg: 0.016  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.156  tag: 0.273  clsf2: 0.206  tag2: 0.216  ohem: 0.513  time: 0.191  lr: 0.00283
+epoch 3 iter 3800/5620  loss: 1.833  rpn_clsf: 0.033  rpn_reg: 0.014  frcn_clsf: 0.191  frcn_reg: 0.005  mask: 0.164  tag: 0.303  clsf2: 0.209  tag2: 0.223  ohem: 0.509  time: 0.191  lr: 0.00283
+epoch 3 iter 3900/5620  loss: 1.761  rpn_clsf: 0.030  rpn_reg: 0.013  frcn_clsf: 0.185  frcn_reg: 0.005  mask: 0.155  tag: 0.263  clsf2: 0.199  tag2: 0.218  ohem: 0.498  time: 0.187  lr: 0.00283
+epoch 3 iter 4000/5620  loss: 1.707  rpn_clsf: 0.032  rpn_reg: 0.014  frcn_clsf: 0.196  frcn_reg: 0.005  mask: 0.161  tag: 0.285  clsf2: 0.209  tag2: 0.232  ohem: 0.478  time: 0.190  lr: 0.00283
+epoch 3 iter 4100/5620  loss: 1.791  rpn_clsf: 0.030  rpn_reg: 0.015  frcn_clsf: 0.178  frcn_reg: 0.005  mask: 0.150  tag: 0.258  clsf2: 0.182  tag2: 0.220  ohem: 0.524  time: 0.193  lr: 0.00283
+epoch 3 iter 4200/5620  loss: 1.889  rpn_clsf: 0.030  rpn_reg: 0.012  frcn_clsf: 0.180  frcn_reg: 0.005  mask: 0.163  tag: 0.288  clsf2: 0.188  tag2: 0.234  ohem: 0.524  time: 0.190  lr: 0.00283
+epoch 3 iter 4300/5620  loss: 1.738  rpn_clsf: 0.028  rpn_reg: 0.015  frcn_clsf: 0.168  frcn_reg: 0.005  mask: 0.150  tag: 0.268  clsf2: 0.176  tag2: 0.205  ohem: 0.503  time: 0.192  lr: 0.00283
+epoch 3 iter 4400/5620  loss: 1.758  rpn_clsf: 0.031  rpn_reg: 0.015  frcn_clsf: 0.188  frcn_reg: 0.005  mask: 0.163  tag: 0.271  clsf2: 0.204  tag2: 0.219  ohem: 0.482  time: 0.192  lr: 0.00283
+epoch 3 iter 4500/5620  loss: 1.648  rpn_clsf: 0.029  rpn_reg: 0.012  frcn_clsf: 0.183  frcn_reg: 0.005  mask: 0.152  tag: 0.242  clsf2: 0.196  tag2: 0.219  ohem: 0.449  time: 0.191  lr: 0.00283
+epoch 3 iter 4600/5620  loss: 1.735  rpn_clsf: 0.024  rpn_reg: 0.013  frcn_clsf: 0.168  frcn_reg: 0.005  mask: 0.156  tag: 0.277  clsf2: 0.180  tag2: 0.219  ohem: 0.519  time: 0.186  lr: 0.00283
+epoch 3 iter 4700/5620  loss: 1.733  rpn_clsf: 0.028  rpn_reg: 0.012  frcn_clsf: 0.192  frcn_reg: 0.005  mask: 0.153  tag: 0.281  clsf2: 0.195  tag2: 0.219  ohem: 0.481  time: 0.187  lr: 0.00283
+epoch 3 iter 4800/5620  loss: 1.730  rpn_clsf: 0.029  rpn_reg: 0.013  frcn_clsf: 0.181  frcn_reg: 0.005  mask: 0.163  tag: 0.278  clsf2: 0.185  tag2: 0.201  ohem: 0.463  time: 0.189  lr: 0.00283
+epoch 3 iter 4900/5620  loss: 1.646  rpn_clsf: 0.024  rpn_reg: 0.015  frcn_clsf: 0.156  frcn_reg: 0.005  mask: 0.150  tag: 0.285  clsf2: 0.169  tag2: 0.227  ohem: 0.494  time: 0.188  lr: 0.00283
+epoch 3 iter 5000/5620  loss: 1.793  rpn_clsf: 0.026  rpn_reg: 0.019  frcn_clsf: 0.174  frcn_reg: 0.005  mask: 0.156  tag: 0.285  clsf2: 0.185  tag2: 0.247  ohem: 0.517  time: 0.191  lr: 0.00283
+epoch 3 iter 5100/5620  loss: 1.777  rpn_clsf: 0.027  rpn_reg: 0.015  frcn_clsf: 0.183  frcn_reg: 0.005  mask: 0.169  tag: 0.292  clsf2: 0.203  tag2: 0.229  ohem: 0.488  time: 0.187  lr: 0.00283
+epoch 3 iter 5200/5620  loss: 1.769  rpn_clsf: 0.027  rpn_reg: 0.014  frcn_clsf: 0.182  frcn_reg: 0.005  mask: 0.160  tag: 0.298  clsf2: 0.200  tag2: 0.234  ohem: 0.488  time: 0.189  lr: 0.00283
+epoch 3 iter 5300/5620  loss: 1.719  rpn_clsf: 0.028  rpn_reg: 0.013  frcn_clsf: 0.186  frcn_reg: 0.005  mask: 0.154  tag: 0.296  clsf2: 0.204  tag2: 0.242  ohem: 0.500  time: 0.193  lr: 0.00283
+epoch 3 iter 5400/5620  loss: 1.722  rpn_clsf: 0.027  rpn_reg: 0.014  frcn_clsf: 0.173  frcn_reg: 0.005  mask: 0.155  tag: 0.247  clsf2: 0.195  tag2: 0.214  ohem: 0.431  time: 0.190  lr: 0.00283
+epoch 3 iter 5500/5620  loss: 1.667  rpn_clsf: 0.024  rpn_reg: 0.015  frcn_clsf: 0.168  frcn_reg: 0.005  mask: 0.149  tag: 0.264  clsf2: 0.185  tag2: 0.210  ohem: 0.497  time: 0.186  lr: 0.00283
+epoch 3 iter 5600/5620  loss: 1.629  rpn_clsf: 0.021  rpn_reg: 0.013  frcn_clsf: 0.165  frcn_reg: 0.004  mask: 0.147  tag: 0.268  clsf2: 0.182  tag2: 0.233  ohem: 0.455  time: 0.188  lr: 0.00283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_04.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0396 s
+Total inference time: 0:05:57.399558 (0.07459811272538547 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.6375, 0.7217, 0.7970, 0.8549, 0.8930, 0.9214
+mean of [0.5, 1, 2, 4]: 0.7528
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9214	0.2539	0.3128	0.4710	0.9252	0.3766	0.3025	0.4987	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3993+-1.3075, 1.9996+-2.3488
+total test time: 368.044276
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+4: 0.7528
+epoch 4 iter 0/5620  loss: 1.675  rpn_clsf: 0.025  rpn_reg: 0.014  frcn_clsf: 0.173  frcn_reg: 0.005  mask: 0.145  tag: 0.268  clsf2: 0.192  tag2: 0.224  ohem: 0.476  time: 0.190  lr: 0.000283
+epoch 4 iter 100/5620  loss: 1.686  rpn_clsf: 0.022  rpn_reg: 0.012  frcn_clsf: 0.162  frcn_reg: 0.004  mask: 0.158  tag: 0.257  clsf2: 0.161  tag2: 0.201  ohem: 0.499  time: 0.187  lr: 0.000283
+epoch 4 iter 200/5620  loss: 1.528  rpn_clsf: 0.021  rpn_reg: 0.010  frcn_clsf: 0.155  frcn_reg: 0.004  mask: 0.155  tag: 0.244  clsf2: 0.156  tag2: 0.200  ohem: 0.437  time: 0.187  lr: 0.000283
+epoch 4 iter 300/5620  loss: 1.486  rpn_clsf: 0.021  rpn_reg: 0.011  frcn_clsf: 0.165  frcn_reg: 0.005  mask: 0.151  tag: 0.219  clsf2: 0.166  tag2: 0.174  ohem: 0.418  time: 0.188  lr: 0.000283
+epoch 4 iter 400/5620  loss: 1.545  rpn_clsf: 0.019  rpn_reg: 0.012  frcn_clsf: 0.144  frcn_reg: 0.004  mask: 0.136  tag: 0.262  clsf2: 0.142  tag2: 0.196  ohem: 0.501  time: 0.192  lr: 0.000283
+epoch 4 iter 500/5620  loss: 1.411  rpn_clsf: 0.017  rpn_reg: 0.011  frcn_clsf: 0.145  frcn_reg: 0.004  mask: 0.151  tag: 0.220  clsf2: 0.141  tag2: 0.177  ohem: 0.425  time: 0.192  lr: 0.000283
+epoch 4 iter 600/5620  loss: 1.455  rpn_clsf: 0.023  rpn_reg: 0.012  frcn_clsf: 0.144  frcn_reg: 0.004  mask: 0.137  tag: 0.234  clsf2: 0.140  tag2: 0.173  ohem: 0.449  time: 0.190  lr: 0.000283
+epoch 4 iter 700/5620  loss: 1.430  rpn_clsf: 0.019  rpn_reg: 0.011  frcn_clsf: 0.157  frcn_reg: 0.004  mask: 0.159  tag: 0.215  clsf2: 0.161  tag2: 0.164  ohem: 0.412  time: 0.187  lr: 0.000283
+epoch 4 iter 800/5620  loss: 1.418  rpn_clsf: 0.020  rpn_reg: 0.013  frcn_clsf: 0.149  frcn_reg: 0.004  mask: 0.142  tag: 0.211  clsf2: 0.145  tag2: 0.163  ohem: 0.436  time: 0.188  lr: 0.000283
+epoch 4 iter 900/5620  loss: 1.666  rpn_clsf: 0.024  rpn_reg: 0.011  frcn_clsf: 0.155  frcn_reg: 0.004  mask: 0.147  tag: 0.271  clsf2: 0.160  tag2: 0.175  ohem: 0.462  time: 0.188  lr: 0.000283
+epoch 4 iter 1000/5620  loss: 1.478  rpn_clsf: 0.019  rpn_reg: 0.011  frcn_clsf: 0.152  frcn_reg: 0.004  mask: 0.156  tag: 0.233  clsf2: 0.154  tag2: 0.179  ohem: 0.443  time: 0.192  lr: 0.000283
+epoch 4 iter 1100/5620  loss: 1.340  rpn_clsf: 0.018  rpn_reg: 0.010  frcn_clsf: 0.142  frcn_reg: 0.004  mask: 0.137  tag: 0.220  clsf2: 0.139  tag2: 0.173  ohem: 0.386  time: 0.192  lr: 0.000283
+epoch 4 iter 1200/5620  loss: 1.631  rpn_clsf: 0.020  rpn_reg: 0.013  frcn_clsf: 0.165  frcn_reg: 0.004  mask: 0.153  tag: 0.239  clsf2: 0.166  tag2: 0.183  ohem: 0.514  time: 0.189  lr: 0.000283
+epoch 4 iter 1300/5620  loss: 1.560  rpn_clsf: 0.018  rpn_reg: 0.011  frcn_clsf: 0.139  frcn_reg: 0.004  mask: 0.149  tag: 0.245  clsf2: 0.135  tag2: 0.168  ohem: 0.476  time: 0.185  lr: 0.000283
+epoch 4 iter 1400/5620  loss: 1.462  rpn_clsf: 0.020  rpn_reg: 0.009  frcn_clsf: 0.135  frcn_reg: 0.004  mask: 0.151  tag: 0.224  clsf2: 0.135  tag2: 0.162  ohem: 0.423  time: 0.187  lr: 0.000283
+epoch 4 iter 1500/5620  loss: 1.524  rpn_clsf: 0.018  rpn_reg: 0.011  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.143  tag: 0.222  clsf2: 0.130  tag2: 0.161  ohem: 0.465  time: 0.192  lr: 0.000283
+epoch 4 iter 1600/5620  loss: 1.461  rpn_clsf: 0.017  rpn_reg: 0.012  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.145  tag: 0.222  clsf2: 0.132  tag2: 0.186  ohem: 0.472  time: 0.187  lr: 0.000283
+epoch 4 iter 1700/5620  loss: 1.452  rpn_clsf: 0.017  rpn_reg: 0.011  frcn_clsf: 0.137  frcn_reg: 0.004  mask: 0.143  tag: 0.218  clsf2: 0.136  tag2: 0.173  ohem: 0.469  time: 0.187  lr: 0.000283
+epoch 4 iter 1800/5620  loss: 1.502  rpn_clsf: 0.019  rpn_reg: 0.013  frcn_clsf: 0.143  frcn_reg: 0.004  mask: 0.157  tag: 0.233  clsf2: 0.150  tag2: 0.175  ohem: 0.451  time: 0.190  lr: 0.000283
+epoch 4 iter 1900/5620  loss: 1.370  rpn_clsf: 0.017  rpn_reg: 0.013  frcn_clsf: 0.137  frcn_reg: 0.004  mask: 0.146  tag: 0.206  clsf2: 0.144  tag2: 0.169  ohem: 0.404  time: 0.191  lr: 0.000283
+epoch 4 iter 2000/5620  loss: 1.464  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.143  frcn_reg: 0.004  mask: 0.148  tag: 0.210  clsf2: 0.144  tag2: 0.170  ohem: 0.454  time: 0.187  lr: 0.000283
+epoch 4 iter 2100/5620  loss: 1.446  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.146  frcn_reg: 0.004  mask: 0.144  tag: 0.215  clsf2: 0.145  tag2: 0.159  ohem: 0.426  time: 0.191  lr: 0.000283
+epoch 4 iter 2200/5620  loss: 1.462  rpn_clsf: 0.018  rpn_reg: 0.011  frcn_clsf: 0.150  frcn_reg: 0.004  mask: 0.142  tag: 0.217  clsf2: 0.148  tag2: 0.165  ohem: 0.466  time: 0.191  lr: 0.000283
+epoch 4 iter 2300/5620  loss: 1.561  rpn_clsf: 0.020  rpn_reg: 0.012  frcn_clsf: 0.139  frcn_reg: 0.004  mask: 0.152  tag: 0.234  clsf2: 0.144  tag2: 0.169  ohem: 0.518  time: 0.188  lr: 0.000283
+epoch 4 iter 2400/5620  loss: 1.456  rpn_clsf: 0.017  rpn_reg: 0.012  frcn_clsf: 0.142  frcn_reg: 0.004  mask: 0.147  tag: 0.221  clsf2: 0.139  tag2: 0.156  ohem: 0.456  time: 0.192  lr: 0.000283
+epoch 4 iter 2500/5620  loss: 1.483  rpn_clsf: 0.018  rpn_reg: 0.010  frcn_clsf: 0.150  frcn_reg: 0.004  mask: 0.150  tag: 0.229  clsf2: 0.148  tag2: 0.164  ohem: 0.448  time: 0.192  lr: 0.000283
+epoch 4 iter 2600/5620  loss: 1.356  rpn_clsf: 0.013  rpn_reg: 0.012  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.144  tag: 0.202  clsf2: 0.134  tag2: 0.151  ohem: 0.440  time: 0.191  lr: 0.000283
+epoch 4 iter 2700/5620  loss: 1.403  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.148  tag: 0.212  clsf2: 0.130  tag2: 0.155  ohem: 0.467  time: 0.188  lr: 0.000283
+epoch 4 iter 2800/5620  loss: 1.396  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.137  frcn_reg: 0.004  mask: 0.144  tag: 0.236  clsf2: 0.136  tag2: 0.173  ohem: 0.498  time: 0.188  lr: 0.000283
+epoch 4 iter 2900/5620  loss: 1.518  rpn_clsf: 0.018  rpn_reg: 0.012  frcn_clsf: 0.129  frcn_reg: 0.004  mask: 0.136  tag: 0.241  clsf2: 0.126  tag2: 0.182  ohem: 0.517  time: 0.191  lr: 0.000283
+epoch 4 iter 3000/5620  loss: 1.482  rpn_clsf: 0.018  rpn_reg: 0.012  frcn_clsf: 0.143  frcn_reg: 0.004  mask: 0.142  tag: 0.226  clsf2: 0.142  tag2: 0.160  ohem: 0.469  time: 0.188  lr: 0.000283
+epoch 4 iter 3100/5620  loss: 1.523  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.140  frcn_reg: 0.004  mask: 0.145  tag: 0.213  clsf2: 0.136  tag2: 0.170  ohem: 0.508  time: 0.191  lr: 0.000283
+epoch 4 iter 3200/5620  loss: 1.391  rpn_clsf: 0.017  rpn_reg: 0.011  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.146  tag: 0.203  clsf2: 0.137  tag2: 0.157  ohem: 0.392  time: 0.187  lr: 0.000283
+epoch 4 iter 3300/5620  loss: 1.548  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.135  frcn_reg: 0.004  mask: 0.145  tag: 0.223  clsf2: 0.137  tag2: 0.169  ohem: 0.515  time: 0.188  lr: 0.000283
+epoch 4 iter 3400/5620  loss: 1.608  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.145  frcn_reg: 0.004  mask: 0.142  tag: 0.235  clsf2: 0.137  tag2: 0.165  ohem: 0.514  time: 0.192  lr: 0.000283
+epoch 4 iter 3500/5620  loss: 1.415  rpn_clsf: 0.015  rpn_reg: 0.012  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.137  tag: 0.216  clsf2: 0.127  tag2: 0.169  ohem: 0.427  time: 0.187  lr: 0.000283
+epoch 4 iter 3600/5620  loss: 1.444  rpn_clsf: 0.014  rpn_reg: 0.012  frcn_clsf: 0.136  frcn_reg: 0.004  mask: 0.140  tag: 0.229  clsf2: 0.140  tag2: 0.162  ohem: 0.503  time: 0.190  lr: 0.000283
+epoch 4 iter 3700/5620  loss: 1.327  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.128  frcn_reg: 0.004  mask: 0.137  tag: 0.217  clsf2: 0.127  tag2: 0.162  ohem: 0.454  time: 0.188  lr: 0.000283
+epoch 4 iter 3800/5620  loss: 1.562  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.138  frcn_reg: 0.004  mask: 0.143  tag: 0.227  clsf2: 0.141  tag2: 0.172  ohem: 0.499  time: 0.187  lr: 0.000283
+epoch 4 iter 3900/5620  loss: 1.421  rpn_clsf: 0.018  rpn_reg: 0.013  frcn_clsf: 0.133  frcn_reg: 0.004  mask: 0.140  tag: 0.194  clsf2: 0.134  tag2: 0.157  ohem: 0.465  time: 0.188  lr: 0.000283
+epoch 4 iter 4000/5620  loss: 1.537  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.145  frcn_reg: 0.004  mask: 0.146  tag: 0.231  clsf2: 0.141  tag2: 0.169  ohem: 0.474  time: 0.189  lr: 0.000283
+epoch 4 iter 4100/5620  loss: 1.427  rpn_clsf: 0.016  rpn_reg: 0.010  frcn_clsf: 0.143  frcn_reg: 0.004  mask: 0.144  tag: 0.222  clsf2: 0.144  tag2: 0.164  ohem: 0.456  time: 0.192  lr: 0.000283
+epoch 4 iter 4200/5620  loss: 1.454  rpn_clsf: 0.018  rpn_reg: 0.012  frcn_clsf: 0.151  frcn_reg: 0.004  mask: 0.154  tag: 0.209  clsf2: 0.152  tag2: 0.162  ohem: 0.443  time: 0.192  lr: 0.000283
+epoch 4 iter 4300/5620  loss: 1.530  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.139  frcn_reg: 0.004  mask: 0.155  tag: 0.224  clsf2: 0.136  tag2: 0.165  ohem: 0.499  time: 0.191  lr: 0.000283
+epoch 4 iter 4400/5620  loss: 1.356  rpn_clsf: 0.016  rpn_reg: 0.012  frcn_clsf: 0.137  frcn_reg: 0.003  mask: 0.136  tag: 0.206  clsf2: 0.139  tag2: 0.156  ohem: 0.507  time: 0.191  lr: 0.000283
+epoch 4 iter 4500/5620  loss: 1.427  rpn_clsf: 0.016  rpn_reg: 0.012  frcn_clsf: 0.138  frcn_reg: 0.004  mask: 0.139  tag: 0.204  clsf2: 0.137  tag2: 0.155  ohem: 0.449  time: 0.195  lr: 0.000283
+epoch 4 iter 4600/5620  loss: 1.311  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.150  tag: 0.211  clsf2: 0.126  tag2: 0.155  ohem: 0.450  time: 0.187  lr: 0.000283
+epoch 4 iter 4700/5620  loss: 1.585  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.151  frcn_reg: 0.004  mask: 0.138  tag: 0.253  clsf2: 0.149  tag2: 0.162  ohem: 0.563  time: 0.188  lr: 0.000283
+epoch 4 iter 4800/5620  loss: 1.510  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.136  frcn_reg: 0.004  mask: 0.143  tag: 0.220  clsf2: 0.134  tag2: 0.156  ohem: 0.478  time: 0.192  lr: 0.000283
+epoch 4 iter 4900/5620  loss: 1.415  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.139  tag: 0.225  clsf2: 0.125  tag2: 0.149  ohem: 0.518  time: 0.186  lr: 0.000283
+epoch 4 iter 5000/5620  loss: 1.437  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.133  frcn_reg: 0.004  mask: 0.150  tag: 0.220  clsf2: 0.135  tag2: 0.159  ohem: 0.419  time: 0.191  lr: 0.000283
+epoch 4 iter 5100/5620  loss: 1.342  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.153  tag: 0.213  clsf2: 0.127  tag2: 0.153  ohem: 0.434  time: 0.191  lr: 0.000283
+epoch 4 iter 5200/5620  loss: 1.404  rpn_clsf: 0.017  rpn_reg: 0.012  frcn_clsf: 0.138  frcn_reg: 0.004  mask: 0.144  tag: 0.199  clsf2: 0.139  tag2: 0.152  ohem: 0.449  time: 0.186  lr: 0.000283
+epoch 4 iter 5300/5620  loss: 1.543  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.139  frcn_reg: 0.004  mask: 0.147  tag: 0.249  clsf2: 0.141  tag2: 0.181  ohem: 0.442  time: 0.193  lr: 0.000283
+epoch 4 iter 5400/5620  loss: 1.473  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.135  frcn_reg: 0.004  mask: 0.140  tag: 0.215  clsf2: 0.136  tag2: 0.155  ohem: 0.435  time: 0.188  lr: 0.000283
+epoch 4 iter 5500/5620  loss: 1.317  rpn_clsf: 0.013  rpn_reg: 0.012  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.136  tag: 0.184  clsf2: 0.129  tag2: 0.153  ohem: 0.425  time: 0.188  lr: 0.000283
+epoch 4 iter 5600/5620  loss: 1.415  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.148  tag: 0.217  clsf2: 0.133  tag2: 0.164  ohem: 0.418  time: 0.192  lr: 0.000283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_05.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0395 s
+Total inference time: 0:05:59.096870 (0.0749523836246141 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7266, 0.8083, 0.8658, 0.9094, 0.9343, 0.9474
+mean of [0.5, 1, 2, 4]: 0.8275
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9288	0.3168	0.2650	0.5581	0.9327	0.4757	0.3935	0.6015	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3330+-1.2328, 1.8952+-2.2538
+total test time: 368.426749
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+4: 0.7528
+5: 0.8275
+epoch 5 iter 0/5620  loss: 1.415  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.136  frcn_reg: 0.004  mask: 0.139  tag: 0.226  clsf2: 0.136  tag2: 0.171  ohem: 0.415  time: 0.191  lr: 0.000283
+epoch 5 iter 100/5620  loss: 1.364  rpn_clsf: 0.020  rpn_reg: 0.010  frcn_clsf: 0.145  frcn_reg: 0.004  mask: 0.148  tag: 0.202  clsf2: 0.149  tag2: 0.152  ohem: 0.429  time: 0.191  lr: 0.000283
+epoch 5 iter 200/5620  loss: 1.460  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.138  frcn_reg: 0.004  mask: 0.148  tag: 0.204  clsf2: 0.136  tag2: 0.154  ohem: 0.495  time: 0.185  lr: 0.000283
+epoch 5 iter 300/5620  loss: 1.573  rpn_clsf: 0.014  rpn_reg: 0.008  frcn_clsf: 0.133  frcn_reg: 0.004  mask: 0.150  tag: 0.221  clsf2: 0.133  tag2: 0.153  ohem: 0.514  time: 0.189  lr: 0.000283
+epoch 5 iter 400/5620  loss: 1.305  rpn_clsf: 0.015  rpn_reg: 0.013  frcn_clsf: 0.144  frcn_reg: 0.004  mask: 0.141  tag: 0.197  clsf2: 0.147  tag2: 0.147  ohem: 0.386  time: 0.189  lr: 0.000283
+epoch 5 iter 500/5620  loss: 1.310  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.138  tag: 0.210  clsf2: 0.121  tag2: 0.166  ohem: 0.430  time: 0.188  lr: 0.000283
+epoch 5 iter 600/5620  loss: 1.484  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.143  tag: 0.229  clsf2: 0.126  tag2: 0.166  ohem: 0.536  time: 0.188  lr: 0.000283
+epoch 5 iter 700/5620  loss: 1.320  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.146  tag: 0.177  clsf2: 0.122  tag2: 0.148  ohem: 0.428  time: 0.190  lr: 0.000283
+epoch 5 iter 800/5620  loss: 1.461  rpn_clsf: 0.016  rpn_reg: 0.010  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.142  tag: 0.244  clsf2: 0.129  tag2: 0.172  ohem: 0.503  time: 0.189  lr: 0.000283
+epoch 5 iter 900/5620  loss: 1.390  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.138  tag: 0.203  clsf2: 0.119  tag2: 0.158  ohem: 0.450  time: 0.186  lr: 0.000283
+epoch 5 iter 1000/5620  loss: 1.432  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.147  tag: 0.205  clsf2: 0.121  tag2: 0.162  ohem: 0.453  time: 0.191  lr: 0.000283
+epoch 5 iter 1100/5620  loss: 1.415  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.134  tag: 0.225  clsf2: 0.118  tag2: 0.149  ohem: 0.484  time: 0.191  lr: 0.000283
+epoch 5 iter 1200/5620  loss: 1.454  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.145  tag: 0.208  clsf2: 0.130  tag2: 0.156  ohem: 0.493  time: 0.188  lr: 0.000283
+epoch 5 iter 1300/5620  loss: 1.339  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.141  tag: 0.213  clsf2: 0.117  tag2: 0.174  ohem: 0.432  time: 0.190  lr: 0.000283
+epoch 5 iter 1400/5620  loss: 1.333  rpn_clsf: 0.014  rpn_reg: 0.014  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.130  tag: 0.193  clsf2: 0.121  tag2: 0.155  ohem: 0.446  time: 0.192  lr: 0.000283
+epoch 5 iter 1500/5620  loss: 1.361  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.147  tag: 0.205  clsf2: 0.128  tag2: 0.142  ohem: 0.462  time: 0.189  lr: 0.000283
+epoch 5 iter 1600/5620  loss: 1.540  rpn_clsf: 0.013  rpn_reg: 0.012  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.141  tag: 0.225  clsf2: 0.126  tag2: 0.150  ohem: 0.497  time: 0.194  lr: 0.000283
+epoch 5 iter 1700/5620  loss: 1.475  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.146  tag: 0.235  clsf2: 0.119  tag2: 0.150  ohem: 0.506  time: 0.188  lr: 0.000283
+epoch 5 iter 1800/5620  loss: 1.520  rpn_clsf: 0.010  rpn_reg: 0.011  frcn_clsf: 0.132  frcn_reg: 0.004  mask: 0.141  tag: 0.228  clsf2: 0.136  tag2: 0.168  ohem: 0.505  time: 0.192  lr: 0.000283
+epoch 5 iter 1900/5620  loss: 1.417  rpn_clsf: 0.018  rpn_reg: 0.012  frcn_clsf: 0.141  frcn_reg: 0.004  mask: 0.156  tag: 0.215  clsf2: 0.139  tag2: 0.159  ohem: 0.486  time: 0.191  lr: 0.000283
+epoch 5 iter 2000/5620  loss: 1.392  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.115  frcn_reg: 0.004  mask: 0.142  tag: 0.208  clsf2: 0.113  tag2: 0.145  ohem: 0.442  time: 0.192  lr: 0.000283
+epoch 5 iter 2100/5620  loss: 1.348  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.145  tag: 0.209  clsf2: 0.122  tag2: 0.147  ohem: 0.416  time: 0.186  lr: 0.000283
+epoch 5 iter 2200/5620  loss: 1.370  rpn_clsf: 0.011  rpn_reg: 0.012  frcn_clsf: 0.140  frcn_reg: 0.004  mask: 0.144  tag: 0.208  clsf2: 0.141  tag2: 0.156  ohem: 0.417  time: 0.191  lr: 0.000283
+epoch 5 iter 2300/5620  loss: 1.551  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.132  frcn_reg: 0.004  mask: 0.139  tag: 0.233  clsf2: 0.132  tag2: 0.161  ohem: 0.521  time: 0.191  lr: 0.000283
+epoch 5 iter 2400/5620  loss: 1.432  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.144  tag: 0.238  clsf2: 0.134  tag2: 0.165  ohem: 0.495  time: 0.191  lr: 0.000283
+epoch 5 iter 2500/5620  loss: 1.410  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.136  tag: 0.204  clsf2: 0.127  tag2: 0.154  ohem: 0.484  time: 0.193  lr: 0.000283
+epoch 5 iter 2600/5620  loss: 1.286  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.140  tag: 0.190  clsf2: 0.135  tag2: 0.150  ohem: 0.449  time: 0.188  lr: 0.000283
+epoch 5 iter 2700/5620  loss: 1.374  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.130  tag: 0.202  clsf2: 0.127  tag2: 0.147  ohem: 0.464  time: 0.192  lr: 0.000283
+epoch 5 iter 2800/5620  loss: 1.382  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.140  tag: 0.209  clsf2: 0.122  tag2: 0.155  ohem: 0.505  time: 0.189  lr: 0.000283
+epoch 5 iter 2900/5620  loss: 1.407  rpn_clsf: 0.011  rpn_reg: 0.011  frcn_clsf: 0.118  frcn_reg: 0.004  mask: 0.153  tag: 0.211  clsf2: 0.116  tag2: 0.153  ohem: 0.434  time: 0.190  lr: 0.000283
+epoch 5 iter 3000/5620  loss: 1.422  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.148  tag: 0.202  clsf2: 0.127  tag2: 0.143  ohem: 0.488  time: 0.191  lr: 0.000283
+epoch 5 iter 3100/5620  loss: 1.441  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.128  frcn_reg: 0.004  mask: 0.136  tag: 0.218  clsf2: 0.125  tag2: 0.165  ohem: 0.505  time: 0.193  lr: 0.000283
+epoch 5 iter 3200/5620  loss: 1.391  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.145  tag: 0.210  clsf2: 0.130  tag2: 0.151  ohem: 0.497  time: 0.192  lr: 0.000283
+epoch 5 iter 3300/5620  loss: 1.364  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.140  tag: 0.207  clsf2: 0.116  tag2: 0.166  ohem: 0.406  time: 0.190  lr: 0.000283
+epoch 5 iter 3400/5620  loss: 1.368  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.139  tag: 0.206  clsf2: 0.127  tag2: 0.157  ohem: 0.437  time: 0.193  lr: 0.000283
+epoch 5 iter 3500/5620  loss: 1.425  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.118  frcn_reg: 0.004  mask: 0.137  tag: 0.235  clsf2: 0.116  tag2: 0.160  ohem: 0.478  time: 0.186  lr: 0.000283
+epoch 5 iter 3600/5620  loss: 1.519  rpn_clsf: 0.014  rpn_reg: 0.013  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.140  tag: 0.205  clsf2: 0.127  tag2: 0.164  ohem: 0.524  time: 0.191  lr: 0.000283
+epoch 5 iter 3700/5620  loss: 1.347  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.133  tag: 0.195  clsf2: 0.124  tag2: 0.158  ohem: 0.443  time: 0.192  lr: 0.000283
+epoch 5 iter 3800/5620  loss: 1.341  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.131  frcn_reg: 0.004  mask: 0.145  tag: 0.207  clsf2: 0.131  tag2: 0.141  ohem: 0.410  time: 0.190  lr: 0.000283
+epoch 5 iter 3900/5620  loss: 1.406  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.141  frcn_reg: 0.004  mask: 0.137  tag: 0.195  clsf2: 0.142  tag2: 0.150  ohem: 0.479  time: 0.190  lr: 0.000283
+epoch 5 iter 4000/5620  loss: 1.361  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.143  tag: 0.204  clsf2: 0.122  tag2: 0.151  ohem: 0.475  time: 0.187  lr: 0.000283
+epoch 5 iter 4100/5620  loss: 1.469  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.140  frcn_reg: 0.004  mask: 0.150  tag: 0.210  clsf2: 0.138  tag2: 0.148  ohem: 0.479  time: 0.193  lr: 0.000283
+epoch 5 iter 4200/5620  loss: 1.211  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.141  tag: 0.179  clsf2: 0.126  tag2: 0.144  ohem: 0.350  time: 0.185  lr: 0.000283
+epoch 5 iter 4300/5620  loss: 1.295  rpn_clsf: 0.012  rpn_reg: 0.012  frcn_clsf: 0.140  frcn_reg: 0.004  mask: 0.136  tag: 0.184  clsf2: 0.141  tag2: 0.138  ohem: 0.434  time: 0.192  lr: 0.000283
+epoch 5 iter 4400/5620  loss: 1.351  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.141  tag: 0.205  clsf2: 0.128  tag2: 0.151  ohem: 0.432  time: 0.193  lr: 0.000283
+epoch 5 iter 4500/5620  loss: 1.353  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.146  tag: 0.200  clsf2: 0.132  tag2: 0.149  ohem: 0.467  time: 0.192  lr: 0.000283
+epoch 5 iter 4600/5620  loss: 1.323  rpn_clsf: 0.017  rpn_reg: 0.010  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.140  tag: 0.184  clsf2: 0.123  tag2: 0.150  ohem: 0.441  time: 0.190  lr: 0.000283
+epoch 5 iter 4700/5620  loss: 1.484  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.143  tag: 0.206  clsf2: 0.126  tag2: 0.156  ohem: 0.476  time: 0.187  lr: 0.000283
+epoch 5 iter 4800/5620  loss: 1.420  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.142  tag: 0.213  clsf2: 0.127  tag2: 0.154  ohem: 0.431  time: 0.186  lr: 0.000283
+epoch 5 iter 4900/5620  loss: 1.420  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.138  tag: 0.219  clsf2: 0.120  tag2: 0.157  ohem: 0.519  time: 0.193  lr: 0.000283
+epoch 5 iter 5000/5620  loss: 1.578  rpn_clsf: 0.015  rpn_reg: 0.012  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.144  tag: 0.235  clsf2: 0.138  tag2: 0.164  ohem: 0.539  time: 0.192  lr: 0.000283
+epoch 5 iter 5100/5620  loss: 1.398  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.136  tag: 0.215  clsf2: 0.132  tag2: 0.160  ohem: 0.434  time: 0.190  lr: 0.000283
+epoch 5 iter 5200/5620  loss: 1.429  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.144  tag: 0.226  clsf2: 0.128  tag2: 0.173  ohem: 0.507  time: 0.189  lr: 0.000283
+epoch 5 iter 5300/5620  loss: 1.497  rpn_clsf: 0.010  rpn_reg: 0.011  frcn_clsf: 0.129  frcn_reg: 0.004  mask: 0.140  tag: 0.226  clsf2: 0.132  tag2: 0.166  ohem: 0.509  time: 0.190  lr: 0.000283
+epoch 5 iter 5400/5620  loss: 1.415  rpn_clsf: 0.014  rpn_reg: 0.012  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.142  tag: 0.221  clsf2: 0.122  tag2: 0.166  ohem: 0.509  time: 0.191  lr: 0.000283
+epoch 5 iter 5500/5620  loss: 1.313  rpn_clsf: 0.013  rpn_reg: 0.012  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.146  tag: 0.196  clsf2: 0.118  tag2: 0.156  ohem: 0.412  time: 0.191  lr: 0.000283
+epoch 5 iter 5600/5620  loss: 1.420  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.141  tag: 0.212  clsf2: 0.126  tag2: 0.151  ohem: 0.444  time: 0.192  lr: 0.000283
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_06.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0396 s
+Total inference time: 0:05:57.514781 (0.07462216249663803 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7342, 0.8148, 0.8717, 0.9083, 0.9355, 0.9456
+mean of [0.5, 1, 2, 4]: 0.8323
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9289	0.3217	0.2734	0.5465	0.9332	0.4869	0.4144	0.5902	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3583+-1.2384, 1.9223+-2.3000
+total test time: 366.528898
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+4: 0.7528
+5: 0.8275
+6: 0.8323
+epoch 6 iter 0/5620  loss: 1.428  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.142  tag: 0.215  clsf2: 0.123  tag2: 0.155  ohem: 0.492  time: 0.196  lr: 2.83e-05
+epoch 6 iter 100/5620  loss: 1.241  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.138  tag: 0.185  clsf2: 0.117  tag2: 0.143  ohem: 0.373  time: 0.193  lr: 2.83e-05
+epoch 6 iter 200/5620  loss: 1.309  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.150  tag: 0.186  clsf2: 0.119  tag2: 0.139  ohem: 0.433  time: 0.186  lr: 2.83e-05
+epoch 6 iter 300/5620  loss: 1.299  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.113  frcn_reg: 0.004  mask: 0.143  tag: 0.217  clsf2: 0.113  tag2: 0.145  ohem: 0.443  time: 0.190  lr: 2.83e-05
+epoch 6 iter 400/5620  loss: 1.330  rpn_clsf: 0.010  rpn_reg: 0.011  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.137  tag: 0.199  clsf2: 0.122  tag2: 0.151  ohem: 0.462  time: 0.188  lr: 2.83e-05
+epoch 6 iter 500/5620  loss: 1.318  rpn_clsf: 0.011  rpn_reg: 0.012  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.141  tag: 0.190  clsf2: 0.114  tag2: 0.145  ohem: 0.419  time: 0.191  lr: 2.83e-05
+epoch 6 iter 600/5620  loss: 1.288  rpn_clsf: 0.011  rpn_reg: 0.011  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.141  tag: 0.206  clsf2: 0.111  tag2: 0.149  ohem: 0.428  time: 0.193  lr: 2.83e-05
+epoch 6 iter 700/5620  loss: 1.334  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.113  frcn_reg: 0.004  mask: 0.129  tag: 0.205  clsf2: 0.112  tag2: 0.164  ohem: 0.459  time: 0.188  lr: 2.83e-05
+epoch 6 iter 800/5620  loss: 1.299  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.118  frcn_reg: 0.004  mask: 0.144  tag: 0.192  clsf2: 0.119  tag2: 0.143  ohem: 0.418  time: 0.186  lr: 2.83e-05
+epoch 6 iter 900/5620  loss: 1.384  rpn_clsf: 0.010  rpn_reg: 0.009  frcn_clsf: 0.119  frcn_reg: 0.003  mask: 0.149  tag: 0.219  clsf2: 0.117  tag2: 0.157  ohem: 0.480  time: 0.188  lr: 2.83e-05
+epoch 6 iter 1000/5620  loss: 1.248  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.118  frcn_reg: 0.003  mask: 0.133  tag: 0.205  clsf2: 0.121  tag2: 0.154  ohem: 0.412  time: 0.188  lr: 2.83e-05
+epoch 6 iter 1100/5620  loss: 1.337  rpn_clsf: 0.014  rpn_reg: 0.013  frcn_clsf: 0.145  frcn_reg: 0.004  mask: 0.141  tag: 0.198  clsf2: 0.145  tag2: 0.156  ohem: 0.430  time: 0.190  lr: 2.83e-05
+epoch 6 iter 1200/5620  loss: 1.289  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.118  frcn_reg: 0.004  mask: 0.143  tag: 0.211  clsf2: 0.118  tag2: 0.150  ohem: 0.431  time: 0.188  lr: 2.83e-05
+epoch 6 iter 1300/5620  loss: 1.336  rpn_clsf: 0.012  rpn_reg: 0.009  frcn_clsf: 0.135  frcn_reg: 0.004  mask: 0.141  tag: 0.185  clsf2: 0.133  tag2: 0.148  ohem: 0.412  time: 0.188  lr: 2.83e-05
+epoch 6 iter 1400/5620  loss: 1.408  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.116  frcn_reg: 0.004  mask: 0.141  tag: 0.198  clsf2: 0.114  tag2: 0.142  ohem: 0.447  time: 0.190  lr: 2.83e-05
+epoch 6 iter 1500/5620  loss: 1.384  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.128  frcn_reg: 0.004  mask: 0.138  tag: 0.199  clsf2: 0.129  tag2: 0.153  ohem: 0.461  time: 0.193  lr: 2.83e-05
+epoch 6 iter 1600/5620  loss: 1.462  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.136  tag: 0.204  clsf2: 0.125  tag2: 0.156  ohem: 0.546  time: 0.192  lr: 2.83e-05
+epoch 6 iter 1700/5620  loss: 1.332  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.144  tag: 0.206  clsf2: 0.119  tag2: 0.146  ohem: 0.459  time: 0.192  lr: 2.83e-05
+epoch 6 iter 1800/5620  loss: 1.310  rpn_clsf: 0.010  rpn_reg: 0.009  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.135  tag: 0.211  clsf2: 0.111  tag2: 0.149  ohem: 0.452  time: 0.189  lr: 2.83e-05
+epoch 6 iter 1900/5620  loss: 1.382  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.140  tag: 0.196  clsf2: 0.120  tag2: 0.153  ohem: 0.467  time: 0.192  lr: 2.83e-05
+epoch 6 iter 2000/5620  loss: 1.414  rpn_clsf: 0.014  rpn_reg: 0.012  frcn_clsf: 0.130  frcn_reg: 0.004  mask: 0.149  tag: 0.208  clsf2: 0.130  tag2: 0.159  ohem: 0.443  time: 0.187  lr: 2.83e-05
+epoch 6 iter 2100/5620  loss: 1.332  rpn_clsf: 0.011  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.149  tag: 0.193  clsf2: 0.118  tag2: 0.154  ohem: 0.456  time: 0.192  lr: 2.83e-05
+epoch 6 iter 2200/5620  loss: 1.428  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.138  tag: 0.228  clsf2: 0.112  tag2: 0.171  ohem: 0.488  time: 0.189  lr: 2.83e-05
+epoch 6 iter 2300/5620  loss: 1.259  rpn_clsf: 0.011  rpn_reg: 0.011  frcn_clsf: 0.110  frcn_reg: 0.004  mask: 0.138  tag: 0.207  clsf2: 0.110  tag2: 0.152  ohem: 0.475  time: 0.195  lr: 2.83e-05
+epoch 6 iter 2400/5620  loss: 1.306  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.142  tag: 0.181  clsf2: 0.124  tag2: 0.138  ohem: 0.443  time: 0.189  lr: 2.83e-05
+epoch 6 iter 2500/5620  loss: 1.471  rpn_clsf: 0.011  rpn_reg: 0.008  frcn_clsf: 0.116  frcn_reg: 0.004  mask: 0.147  tag: 0.239  clsf2: 0.115  tag2: 0.155  ohem: 0.480  time: 0.192  lr: 2.83e-05
+epoch 6 iter 2600/5620  loss: 1.392  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.141  tag: 0.194  clsf2: 0.125  tag2: 0.146  ohem: 0.465  time: 0.190  lr: 2.83e-05
+epoch 6 iter 2700/5620  loss: 1.329  rpn_clsf: 0.010  rpn_reg: 0.009  frcn_clsf: 0.112  frcn_reg: 0.004  mask: 0.146  tag: 0.203  clsf2: 0.113  tag2: 0.156  ohem: 0.453  time: 0.187  lr: 2.83e-05
+epoch 6 iter 2800/5620  loss: 1.296  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.146  tag: 0.186  clsf2: 0.116  tag2: 0.145  ohem: 0.392  time: 0.191  lr: 2.83e-05
+epoch 6 iter 2900/5620  loss: 1.380  rpn_clsf: 0.012  rpn_reg: 0.009  frcn_clsf: 0.114  frcn_reg: 0.003  mask: 0.136  tag: 0.220  clsf2: 0.113  tag2: 0.153  ohem: 0.512  time: 0.189  lr: 2.83e-05
+epoch 6 iter 3000/5620  loss: 1.339  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.116  frcn_reg: 0.004  mask: 0.142  tag: 0.217  clsf2: 0.115  tag2: 0.153  ohem: 0.481  time: 0.191  lr: 2.83e-05
+epoch 6 iter 3100/5620  loss: 1.339  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.147  tag: 0.210  clsf2: 0.119  tag2: 0.154  ohem: 0.419  time: 0.190  lr: 2.83e-05
+epoch 6 iter 3200/5620  loss: 1.431  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.135  tag: 0.198  clsf2: 0.117  tag2: 0.148  ohem: 0.435  time: 0.187  lr: 2.83e-05
+epoch 6 iter 3300/5620  loss: 1.410  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.128  frcn_reg: 0.004  mask: 0.152  tag: 0.214  clsf2: 0.128  tag2: 0.157  ohem: 0.437  time: 0.188  lr: 2.83e-05
+epoch 6 iter 3400/5620  loss: 1.194  rpn_clsf: 0.011  rpn_reg: 0.011  frcn_clsf: 0.111  frcn_reg: 0.004  mask: 0.142  tag: 0.178  clsf2: 0.110  tag2: 0.140  ohem: 0.406  time: 0.191  lr: 2.83e-05
+epoch 6 iter 3500/5620  loss: 1.337  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.148  tag: 0.209  clsf2: 0.113  tag2: 0.147  ohem: 0.421  time: 0.187  lr: 2.83e-05
+epoch 6 iter 3600/5620  loss: 1.332  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.137  tag: 0.193  clsf2: 0.125  tag2: 0.141  ohem: 0.443  time: 0.192  lr: 2.83e-05
+epoch 6 iter 3700/5620  loss: 1.271  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.133  tag: 0.181  clsf2: 0.119  tag2: 0.144  ohem: 0.449  time: 0.189  lr: 2.83e-05
+epoch 6 iter 3800/5620  loss: 1.387  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.139  tag: 0.211  clsf2: 0.125  tag2: 0.166  ohem: 0.487  time: 0.191  lr: 2.83e-05
+epoch 6 iter 3900/5620  loss: 1.421  rpn_clsf: 0.014  rpn_reg: 0.012  frcn_clsf: 0.133  frcn_reg: 0.004  mask: 0.142  tag: 0.214  clsf2: 0.131  tag2: 0.153  ohem: 0.496  time: 0.191  lr: 2.83e-05
+epoch 6 iter 4000/5620  loss: 1.466  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.142  tag: 0.209  clsf2: 0.119  tag2: 0.150  ohem: 0.453  time: 0.188  lr: 2.83e-05
+epoch 6 iter 4100/5620  loss: 1.396  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.143  tag: 0.207  clsf2: 0.124  tag2: 0.158  ohem: 0.486  time: 0.187  lr: 2.83e-05
+epoch 6 iter 4200/5620  loss: 1.327  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.003  mask: 0.143  tag: 0.197  clsf2: 0.118  tag2: 0.145  ohem: 0.438  time: 0.190  lr: 2.83e-05
+epoch 6 iter 4300/5620  loss: 1.266  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.143  tag: 0.183  clsf2: 0.121  tag2: 0.137  ohem: 0.440  time: 0.189  lr: 2.83e-05
+epoch 6 iter 4400/5620  loss: 1.382  rpn_clsf: 0.009  rpn_reg: 0.011  frcn_clsf: 0.112  frcn_reg: 0.004  mask: 0.129  tag: 0.199  clsf2: 0.107  tag2: 0.145  ohem: 0.474  time: 0.188  lr: 2.83e-05
+epoch 6 iter 4500/5620  loss: 1.318  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.114  frcn_reg: 0.003  mask: 0.140  tag: 0.195  clsf2: 0.113  tag2: 0.146  ohem: 0.417  time: 0.187  lr: 2.83e-05
+epoch 6 iter 4600/5620  loss: 1.384  rpn_clsf: 0.009  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.138  tag: 0.197  clsf2: 0.121  tag2: 0.138  ohem: 0.473  time: 0.189  lr: 2.83e-05
+epoch 6 iter 4700/5620  loss: 1.315  rpn_clsf: 0.012  rpn_reg: 0.012  frcn_clsf: 0.118  frcn_reg: 0.004  mask: 0.136  tag: 0.198  clsf2: 0.116  tag2: 0.140  ohem: 0.422  time: 0.188  lr: 2.83e-05
+epoch 6 iter 4800/5620  loss: 1.329  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.128  frcn_reg: 0.004  mask: 0.146  tag: 0.186  clsf2: 0.130  tag2: 0.133  ohem: 0.473  time: 0.188  lr: 2.83e-05
+epoch 6 iter 4900/5620  loss: 1.277  rpn_clsf: 0.017  rpn_reg: 0.009  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.139  tag: 0.209  clsf2: 0.126  tag2: 0.155  ohem: 0.437  time: 0.192  lr: 2.83e-05
+epoch 6 iter 5000/5620  loss: 1.390  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.140  tag: 0.204  clsf2: 0.121  tag2: 0.153  ohem: 0.471  time: 0.192  lr: 2.83e-05
+epoch 6 iter 5100/5620  loss: 1.512  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.139  tag: 0.232  clsf2: 0.123  tag2: 0.151  ohem: 0.550  time: 0.187  lr: 2.83e-05
+epoch 6 iter 5200/5620  loss: 1.340  rpn_clsf: 0.015  rpn_reg: 0.011  frcn_clsf: 0.142  frcn_reg: 0.004  mask: 0.136  tag: 0.206  clsf2: 0.138  tag2: 0.144  ohem: 0.444  time: 0.189  lr: 2.83e-05
+epoch 6 iter 5300/5620  loss: 1.329  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.151  tag: 0.189  clsf2: 0.125  tag2: 0.141  ohem: 0.412  time: 0.194  lr: 2.83e-05
+epoch 6 iter 5400/5620  loss: 1.282  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.104  frcn_reg: 0.003  mask: 0.144  tag: 0.205  clsf2: 0.104  tag2: 0.141  ohem: 0.416  time: 0.190  lr: 2.83e-05
+epoch 6 iter 5500/5620  loss: 1.292  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.141  tag: 0.202  clsf2: 0.121  tag2: 0.144  ohem: 0.419  time: 0.196  lr: 2.83e-05
+epoch 6 iter 5600/5620  loss: 1.288  rpn_clsf: 0.011  rpn_reg: 0.012  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.147  tag: 0.192  clsf2: 0.123  tag2: 0.151  ohem: 0.400  time: 0.191  lr: 2.83e-05
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_07.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0396 s
+Total inference time: 0:05:36.382292 (0.07021129029301257 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7401, 0.8199, 0.8756, 0.9143, 0.9366, 0.9468
+mean of [0.5, 1, 2, 4]: 0.8375
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9295	0.3260	0.2733	0.5499	0.9334	0.4982	0.4275	0.5970	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3206+-1.1654, 1.8746+-2.1812
+total test time: 345.268056
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+4: 0.7528
+5: 0.8275
+6: 0.8323
+7: 0.8375
+epoch 7 iter 0/5620  loss: 1.255  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.145  tag: 0.185  clsf2: 0.123  tag2: 0.153  ohem: 0.398  time: 0.189  lr: 2.83e-05
+epoch 7 iter 100/5620  loss: 1.409  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.131  tag: 0.214  clsf2: 0.112  tag2: 0.154  ohem: 0.484  time: 0.193  lr: 2.83e-05
+epoch 7 iter 200/5620  loss: 1.352  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.138  tag: 0.198  clsf2: 0.120  tag2: 0.152  ohem: 0.434  time: 0.188  lr: 2.83e-05
+epoch 7 iter 300/5620  loss: 1.282  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.112  frcn_reg: 0.004  mask: 0.134  tag: 0.198  clsf2: 0.107  tag2: 0.142  ohem: 0.460  time: 0.192  lr: 2.83e-05
+epoch 7 iter 400/5620  loss: 1.341  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.112  frcn_reg: 0.004  mask: 0.138  tag: 0.205  clsf2: 0.109  tag2: 0.147  ohem: 0.466  time: 0.187  lr: 2.83e-05
+epoch 7 iter 500/5620  loss: 1.412  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.142  tag: 0.222  clsf2: 0.119  tag2: 0.158  ohem: 0.483  time: 0.193  lr: 2.83e-05
+epoch 7 iter 600/5620  loss: 1.238  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.141  tag: 0.189  clsf2: 0.119  tag2: 0.139  ohem: 0.399  time: 0.190  lr: 2.83e-05
+epoch 7 iter 700/5620  loss: 1.340  rpn_clsf: 0.010  rpn_reg: 0.009  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.143  tag: 0.211  clsf2: 0.116  tag2: 0.155  ohem: 0.460  time: 0.191  lr: 2.83e-05
+epoch 7 iter 800/5620  loss: 1.198  rpn_clsf: 0.009  rpn_reg: 0.010  frcn_clsf: 0.112  frcn_reg: 0.004  mask: 0.135  tag: 0.184  clsf2: 0.111  tag2: 0.139  ohem: 0.388  time: 0.185  lr: 2.83e-05
+epoch 7 iter 900/5620  loss: 1.338  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.126  frcn_reg: 0.003  mask: 0.137  tag: 0.191  clsf2: 0.126  tag2: 0.139  ohem: 0.421  time: 0.187  lr: 2.83e-05
+epoch 7 iter 1000/5620  loss: 1.402  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.129  frcn_reg: 0.004  mask: 0.136  tag: 0.214  clsf2: 0.129  tag2: 0.150  ohem: 0.480  time: 0.190  lr: 2.83e-05
+epoch 7 iter 1100/5620  loss: 1.338  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.136  tag: 0.209  clsf2: 0.120  tag2: 0.152  ohem: 0.470  time: 0.187  lr: 2.83e-05
+epoch 7 iter 1200/5620  loss: 1.261  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.139  tag: 0.178  clsf2: 0.125  tag2: 0.139  ohem: 0.432  time: 0.191  lr: 2.83e-05
+epoch 7 iter 1300/5620  loss: 1.303  rpn_clsf: 0.015  rpn_reg: 0.010  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.137  tag: 0.174  clsf2: 0.119  tag2: 0.150  ohem: 0.399  time: 0.190  lr: 2.83e-05
+epoch 7 iter 1400/5620  loss: 1.347  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.148  tag: 0.188  clsf2: 0.118  tag2: 0.155  ohem: 0.457  time: 0.187  lr: 2.83e-05
+epoch 7 iter 1500/5620  loss: 1.352  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.144  tag: 0.201  clsf2: 0.113  tag2: 0.146  ohem: 0.435  time: 0.194  lr: 2.83e-05
+epoch 7 iter 1600/5620  loss: 1.276  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.003  mask: 0.142  tag: 0.203  clsf2: 0.119  tag2: 0.149  ohem: 0.426  time: 0.193  lr: 2.83e-05
+epoch 7 iter 1700/5620  loss: 1.237  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.142  tag: 0.182  clsf2: 0.120  tag2: 0.146  ohem: 0.433  time: 0.190  lr: 2.83e-05
+epoch 7 iter 1800/5620  loss: 1.327  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.146  tag: 0.183  clsf2: 0.124  tag2: 0.143  ohem: 0.389  time: 0.192  lr: 2.83e-05
+epoch 7 iter 1900/5620  loss: 1.285  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.132  tag: 0.203  clsf2: 0.118  tag2: 0.151  ohem: 0.394  time: 0.192  lr: 2.83e-05
+epoch 7 iter 2000/5620  loss: 1.339  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.140  tag: 0.196  clsf2: 0.120  tag2: 0.138  ohem: 0.446  time: 0.190  lr: 2.83e-05
+epoch 7 iter 2100/5620  loss: 1.293  rpn_clsf: 0.009  rpn_reg: 0.010  frcn_clsf: 0.113  frcn_reg: 0.003  mask: 0.137  tag: 0.194  clsf2: 0.112  tag2: 0.143  ohem: 0.479  time: 0.192  lr: 2.83e-05
+epoch 7 iter 2200/5620  loss: 1.281  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.116  frcn_reg: 0.003  mask: 0.135  tag: 0.209  clsf2: 0.117  tag2: 0.151  ohem: 0.460  time: 0.191  lr: 2.83e-05
+epoch 7 iter 2300/5620  loss: 1.300  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.135  frcn_reg: 0.004  mask: 0.147  tag: 0.199  clsf2: 0.132  tag2: 0.137  ohem: 0.435  time: 0.187  lr: 2.83e-05
+epoch 7 iter 2400/5620  loss: 1.398  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.134  tag: 0.209  clsf2: 0.122  tag2: 0.145  ohem: 0.492  time: 0.187  lr: 2.83e-05
+epoch 7 iter 2500/5620  loss: 1.235  rpn_clsf: 0.009  rpn_reg: 0.009  frcn_clsf: 0.123  frcn_reg: 0.004  mask: 0.133  tag: 0.187  clsf2: 0.121  tag2: 0.149  ohem: 0.422  time: 0.192  lr: 2.83e-05
+epoch 7 iter 2600/5620  loss: 1.379  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.116  frcn_reg: 0.003  mask: 0.142  tag: 0.216  clsf2: 0.114  tag2: 0.153  ohem: 0.474  time: 0.189  lr: 2.83e-05
+epoch 7 iter 2700/5620  loss: 1.293  rpn_clsf: 0.013  rpn_reg: 0.009  frcn_clsf: 0.136  frcn_reg: 0.004  mask: 0.145  tag: 0.180  clsf2: 0.134  tag2: 0.146  ohem: 0.436  time: 0.184  lr: 2.83e-05
+epoch 7 iter 2800/5620  loss: 1.456  rpn_clsf: 0.014  rpn_reg: 0.009  frcn_clsf: 0.133  frcn_reg: 0.004  mask: 0.144  tag: 0.217  clsf2: 0.130  tag2: 0.145  ohem: 0.499  time: 0.190  lr: 2.83e-05
+epoch 7 iter 2900/5620  loss: 1.280  rpn_clsf: 0.013  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.139  tag: 0.191  clsf2: 0.119  tag2: 0.147  ohem: 0.473  time: 0.189  lr: 2.83e-05
+epoch 7 iter 3000/5620  loss: 1.350  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.136  tag: 0.200  clsf2: 0.120  tag2: 0.152  ohem: 0.407  time: 0.190  lr: 2.83e-05
+epoch 7 iter 3100/5620  loss: 1.416  rpn_clsf: 0.012  rpn_reg: 0.011  frcn_clsf: 0.117  frcn_reg: 0.004  mask: 0.143  tag: 0.206  clsf2: 0.117  tag2: 0.144  ohem: 0.497  time: 0.193  lr: 2.83e-05
+epoch 7 iter 3200/5620  loss: 1.351  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.132  tag: 0.207  clsf2: 0.118  tag2: 0.153  ohem: 0.411  time: 0.187  lr: 2.83e-05
+epoch 7 iter 3300/5620  loss: 1.201  rpn_clsf: 0.008  rpn_reg: 0.010  frcn_clsf: 0.116  frcn_reg: 0.003  mask: 0.133  tag: 0.176  clsf2: 0.113  tag2: 0.135  ohem: 0.399  time: 0.189  lr: 2.83e-05
+epoch 7 iter 3400/5620  loss: 1.481  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.143  tag: 0.228  clsf2: 0.126  tag2: 0.161  ohem: 0.480  time: 0.193  lr: 2.83e-05
+epoch 7 iter 3500/5620  loss: 1.301  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.141  tag: 0.192  clsf2: 0.121  tag2: 0.129  ohem: 0.407  time: 0.188  lr: 2.83e-05
+epoch 7 iter 3600/5620  loss: 1.359  rpn_clsf: 0.012  rpn_reg: 0.009  frcn_clsf: 0.120  frcn_reg: 0.004  mask: 0.150  tag: 0.192  clsf2: 0.116  tag2: 0.140  ohem: 0.395  time: 0.186  lr: 2.83e-05
+epoch 7 iter 3700/5620  loss: 1.392  rpn_clsf: 0.014  rpn_reg: 0.010  frcn_clsf: 0.122  frcn_reg: 0.003  mask: 0.143  tag: 0.229  clsf2: 0.123  tag2: 0.155  ohem: 0.477  time: 0.192  lr: 2.83e-05
+epoch 7 iter 3800/5620  loss: 1.348  rpn_clsf: 0.014  rpn_reg: 0.012  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.142  tag: 0.199  clsf2: 0.124  tag2: 0.149  ohem: 0.420  time: 0.187  lr: 2.83e-05
+epoch 7 iter 3900/5620  loss: 1.279  rpn_clsf: 0.011  rpn_reg: 0.009  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.144  tag: 0.193  clsf2: 0.126  tag2: 0.135  ohem: 0.450  time: 0.188  lr: 2.83e-05
+epoch 7 iter 4000/5620  loss: 1.449  rpn_clsf: 0.014  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.156  tag: 0.205  clsf2: 0.125  tag2: 0.154  ohem: 0.498  time: 0.188  lr: 2.83e-05
+epoch 7 iter 4100/5620  loss: 1.403  rpn_clsf: 0.013  rpn_reg: 0.009  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.144  tag: 0.208  clsf2: 0.126  tag2: 0.147  ohem: 0.503  time: 0.194  lr: 2.83e-05
+epoch 7 iter 4200/5620  loss: 1.350  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.111  frcn_reg: 0.004  mask: 0.137  tag: 0.207  clsf2: 0.109  tag2: 0.152  ohem: 0.461  time: 0.188  lr: 2.83e-05
+epoch 7 iter 4300/5620  loss: 1.300  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.150  tag: 0.201  clsf2: 0.123  tag2: 0.152  ohem: 0.450  time: 0.186  lr: 2.83e-05
+epoch 7 iter 4400/5620  loss: 1.418  rpn_clsf: 0.010  rpn_reg: 0.010  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.143  tag: 0.210  clsf2: 0.121  tag2: 0.150  ohem: 0.495  time: 0.191  lr: 2.83e-05
+epoch 7 iter 4500/5620  loss: 1.272  rpn_clsf: 0.013  rpn_reg: 0.010  frcn_clsf: 0.122  frcn_reg: 0.004  mask: 0.145  tag: 0.190  clsf2: 0.122  tag2: 0.137  ohem: 0.406  time: 0.191  lr: 2.83e-05
+epoch 7 iter 4600/5620  loss: 1.354  rpn_clsf: 0.010  rpn_reg: 0.009  frcn_clsf: 0.113  frcn_reg: 0.003  mask: 0.144  tag: 0.194  clsf2: 0.110  tag2: 0.141  ohem: 0.443  time: 0.189  lr: 2.83e-05
+epoch 7 iter 4700/5620  loss: 1.364  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.124  frcn_reg: 0.004  mask: 0.136  tag: 0.193  clsf2: 0.122  tag2: 0.145  ohem: 0.480  time: 0.198  lr: 2.83e-05
+epoch 7 iter 4800/5620  loss: 1.235  rpn_clsf: 0.009  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.004  mask: 0.143  tag: 0.195  clsf2: 0.116  tag2: 0.134  ohem: 0.451  time: 0.191  lr: 2.83e-05
+epoch 7 iter 4900/5620  loss: 1.414  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.126  frcn_reg: 0.004  mask: 0.137  tag: 0.209  clsf2: 0.124  tag2: 0.149  ohem: 0.520  time: 0.193  lr: 2.83e-05
+epoch 7 iter 5000/5620  loss: 1.332  rpn_clsf: 0.012  rpn_reg: 0.012  frcn_clsf: 0.121  frcn_reg: 0.004  mask: 0.131  tag: 0.193  clsf2: 0.117  tag2: 0.148  ohem: 0.445  time: 0.187  lr: 2.83e-05
+epoch 7 iter 5100/5620  loss: 1.323  rpn_clsf: 0.011  rpn_reg: 0.010  frcn_clsf: 0.125  frcn_reg: 0.004  mask: 0.141  tag: 0.205  clsf2: 0.125  tag2: 0.145  ohem: 0.424  time: 0.187  lr: 2.83e-05
+epoch 7 iter 5200/5620  loss: 1.408  rpn_clsf: 0.012  rpn_reg: 0.010  frcn_clsf: 0.119  frcn_reg: 0.003  mask: 0.131  tag: 0.195  clsf2: 0.119  tag2: 0.145  ohem: 0.493  time: 0.188  lr: 2.83e-05
+epoch 7 iter 5300/5620  loss: 1.319  rpn_clsf: 0.010  rpn_reg: 0.011  frcn_clsf: 0.122  frcn_reg: 0.003  mask: 0.136  tag: 0.192  clsf2: 0.124  tag2: 0.152  ohem: 0.432  time: 0.191  lr: 2.83e-05
+epoch 7 iter 5400/5620  loss: 1.362  rpn_clsf: 0.013  rpn_reg: 0.012  frcn_clsf: 0.114  frcn_reg: 0.004  mask: 0.144  tag: 0.184  clsf2: 0.111  tag2: 0.137  ohem: 0.437  time: 0.191  lr: 2.83e-05
+epoch 7 iter 5500/5620  loss: 1.316  rpn_clsf: 0.010  rpn_reg: 0.011  frcn_clsf: 0.127  frcn_reg: 0.004  mask: 0.143  tag: 0.191  clsf2: 0.126  tag2: 0.143  ohem: 0.445  time: 0.187  lr: 2.83e-05
+epoch 7 iter 5600/5620  loss: 1.392  rpn_clsf: 0.016  rpn_reg: 0.011  frcn_clsf: 0.134  frcn_reg: 0.004  mask: 0.140  tag: 0.202  clsf2: 0.139  tag2: 0.161  ohem: 0.452  time: 0.191  lr: 2.83e-05
+Saving checkpoint to checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_08.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0396 s
+Total inference time: 0:05:55.619140 (0.07422649554334436 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7461, 0.8210, 0.8764, 0.9159, 0.9392, 0.9493
+mean of [0.5, 1, 2, 4]: 0.8398
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9296	0.3300	0.2767	0.5493	0.9335	0.5020	0.4323	0.5987	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3256+-1.1821, 1.8728+-2.1964
+total test time: 364.546259
+
+1: 0.6269
+2: 0.7020
+3: 0.7150
+4: 0.7528
+5: 0.8275
+6: 0.8323
+7: 0.8375
+8: 0.8398
+Total training time: 10:19:04.941186 (4643.1176 s / epoch)
+Loading checkpoint from checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_08.pth
+optimizer and scheduler not loaded from checkpoint file
+Loading optimizer from checkpoints/MULAN trained on DeepLesion (Nov) lr_0.00283_epoch_08.pth
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+DeepLesion val num_images: 4791
+Start evaluation on DeepLesion_val dataset(4791 images).
+Total forwarding time per image: 0.0400 s
+Total inference time: 0:03:36.699677 (0.0452305732652206 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7465, 0.8218, 0.8762, 0.9157, 0.9392, 0.9490
+mean of [0.5, 1, 2, 4]: 0.8400
+
+Tagging accuracy:
+mined tags from reports:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9296	0.3301	0.2767	0.5495	0.9335	0.5018	0.4320	0.5985	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.3250+-1.1804, 1.8735+-2.1962
+total test time: 225.896391
+
+lesion tags loaded from program_data/tags_cache.json
+171 tags, 20266 lesions with tags, 81430 positive tags altogether
+loading 500 hand-labeled test tags
+DeepLesion test num_images: 4817
+Start evaluation on DeepLesion_test dataset(4817 images).
+Total forwarding time per image: 0.0397 s
+Total inference time: 0:05:38.720390 (0.07031770600850884 s / img per device, on 1 devices)
+postprocessing: generating tag predictions, mask contours, RECIST measurements.
+
+Detection accuracy:
+Sensitivity @ [0.5, 1, 2, 4, 8, 16] average FPs per image:
+0.7545, 0.8333, 0.8850, 0.9237, 0.9493, 0.9577
+mean of [0.5, 1, 2, 4]: 0.8491
+
+Tagging accuracy:
+hand-labeled tags:
+m_AUC	pc_F1	pc_Pr	pc_Re	wm_AUC	ov_F1	ov_Pr	ov_Re	
+0.9504	0.4701	0.4579	0.6190	0.9588	0.6369	0.5435	0.7692	
+
+
+Segmentation accuracy:
+avg min distance (mm) from groundtruth recist points to predicted contours in GT boxes:
+error of lesion diameter (mm) estimated from predicted contours in GT boxes:
+1.4095+-1.2650, 1.9435+-2.1993
+total test time: 347.604373
+
+Completed at 11-22_07-42-31: MULAN trained on DeepLesion (Nov) lr_0.00283
